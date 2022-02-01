@@ -15,6 +15,8 @@ class SpecificationFactory extends Factory
     {
         return [
             //
+            'code' => $this->faker->name(),
+            'content' => $this->faker->name(),
         ];
     }
 }
