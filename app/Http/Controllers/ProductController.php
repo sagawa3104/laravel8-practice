@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Request;
 
 class ProductController extends Controller
 {
@@ -16,6 +17,9 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::all();
+
+        return $products;
     }
 
     /**
@@ -48,6 +52,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        return $product;
     }
 
     /**
@@ -82,5 +87,16 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function indexParts(Product $product)
+    {
+
+        return $product->parts()->get();
+    }
+
+    public function attachParts(Request $request, Product $product)
+    {
+
     }
 }
