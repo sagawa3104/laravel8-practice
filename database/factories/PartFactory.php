@@ -17,7 +17,6 @@ class PartFactory extends Factory
             //
             'name' => $this->faker->name(),
             'code' => $this->faker->name(),
-            'image_path' => $this->faker->name(),
         ];
     }
 }
