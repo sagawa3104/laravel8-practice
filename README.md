@@ -51,3 +51,8 @@ php artisan make:migration modifiy_{テーブル名}_{カラム名} --create={�
 + 必要でない`composer update`や`npm update`などは行わないこと。  
 これらコマンドは、原則としてパッケージ名とバージョンを指定したうえで、最小限の影響範囲でしようすること。  
 + 新規にパッケージをインストールする場合は、lockファイルもコミットすること。
+
+## テストコード関連
+
+Laravelの機能を有効にしたい場合(Fakerとか諸々)は`uses(Tests\TestCase::class)`を記述する.
+`befoareAll()`時点ではクラスが作成されていないので、上記`TestCase`を`use()`しても適用されていない。
