@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,9 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 })->middleware(['auth']);
+
+Route::resource('products', ProductController::class);
+
+Route::get('products/{product}/parts', [ProductController::class, 'indexParts'])->name('products.parts');
+
+Route::post('products/{product}/parts', [ProductController::class, 'attachParts'])->name('products.parts.attach');
