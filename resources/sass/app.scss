@@ -1,47 +1,123 @@
-// Option B: Include parts of Bootstrap
-
-// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
-@import "../../node_modules/bootstrap/scss/functions";
-
-// 2. Include any default variable overrides here
-
-// 3. Include remainder of required Bootstrap stylesheets
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
-
-// 4. Include any optional Bootstrap components as you like
-@import "../../node_modules/bootstrap/scss/root";
-@import "../../node_modules/bootstrap/scss/reboot";
-@import "../../node_modules/bootstrap/scss/type";
-@import "../../node_modules/bootstrap/scss/images";
-@import "../../node_modules/bootstrap/scss/containers";
-@import "../../node_modules/bootstrap/scss/grid";
-
-// 5. Add additional custom code here
+//ラッパー
+.wrapper{
+    max-width: 1296px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 
 // ヘッダー
 .header{
+    background-color: paleturquoise;
     position: relative;
+    height: 50px;
+    padding: 4px;
     &__nav{
+        border-bottom-style:double;
+        border-bottom-width:1px;
         display: flex;
         font-size: 1.5rem;
         padding: 0.5rem;
-        border-bottom-style:double;
-        border-bottom-width:1px;
+    }
+}
+
+.container{
+    display: flex;
+}
+
+.side-bar{
+    background-color: darkcyan;
+    color: ghostwhite;
+    height: calc(100vh - 50px);
+    padding: 0.5rem;
+    top: 50px;
+    &__category{
+        padding-bottom: 1rem;
+        &__label{
+            font-size: 1.5rem;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        &__list{
+            padding-left: 1rem;
+            &__item{
+                display: block;
+                padding: 0.25rem;
+            }
+        }
     }
 }
 
 // 横並びのリスト
 .horizontal-list{
-    position: relative;
+    flex-basis: auto;
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basis: auto;
+    position: relative;
     &__item{
-        padding-right: 10px;
         display: inline-block;
+        padding-right: 10px;
     }
     &--right{
         text-align: right;
     }
+}
+
+.login-form-box{
+    justify-content: center;
+    padding-top: 15vh;
+    width:380px;
+    &__header{
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        background-color: powderblue;
+        padding: 1rem;
+        text-align: center;
+    }
+    &__content{
+        background-color: azure;
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+    }
+    &__footer{
+
+    }
+}
+
+.login-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.form-input{
+    background-color: ghostwhite;
+    border-style: ridge;
+    border-radius: 0.25rem;
+    border-width: 1px;
+    display: block;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.form-label{
+    padding-bottom: 5px;
+}
+
+.form{
+    &__group{
+        padding-bottom: 20px;
+    }
+}
+
+.button{
+    border-radius: 0.25rem;
+    color: ghostwhite;
+    display: inline-block;
+    text-align: center;
+    padding: 0.375rem 0.75rem;
+    background-color: #0099ff;
 }
