@@ -1,18 +1,36 @@
-<html lang="ja">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="./css/destyle.css" media="all">
         <link rel="stylesheet" type="text/css" href="./css/app.css" media="all">
     </head>
     <body>
-        <h1>Hello, world</h1>
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <label for="email">eメール</label>
-            <input type="text" id="email" name="email">
-            <label for="password">パスワード</label>
-            <input type="password" id="password" name="password">
-            <button type="submit">ログイン</button>
-        </form>
+        <title>ログイン</title>
+        <main class="wrapper">
+            <div class="login-wrapper">
+                <section class="login-form-box">
+                    <div class="login-form-box__header">
+                        <h1>このアプリにログイン</h1>
+                    </div>
+                    <div class="login-form-box__content">
+                        <form class="form" method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="form__group">
+                                <label class="form-label" for="email">メールアドレス:</label>
+                                <input class="form-input" type="text" id="email" name="email">
+                            </div>
+                            <div class="form__group">
+                                <label class="form-label" for="password">パスワード:</label>
+                                <input class="form-input" type="password" id="password" name="password">
+                            </div>
+                            <button class="button" type="submit">ログイン</button>
+                        </form>
+                    </div>
+                    <div class="login_form_box__footer"></div>
+                </section>
+            </div>
+        </main>
     </body>
 </html>
