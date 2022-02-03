@@ -18,3 +18,30 @@
 @import "../../node_modules/bootstrap/scss/grid";
 
 // 5. Add additional custom code here
+
+// ヘッダー
+.header{
+    position: relative;
+    &__nav{
+        display: flex;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        border-bottom-style:double;
+        border-bottom-width:1px;
+    }
+}
+
+// 横並びのリスト
+.horizontal-list{
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    &__item{
+        padding-right: 10px;
+        display: inline-block;
+    }
+    &--right{
+        text-align: right;
+    }
+}
