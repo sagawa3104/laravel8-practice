@@ -23,7 +23,7 @@
             </nav>
         </header>
         <main>
-            <h1>welcome top page!!</h1>
+            @yield('content')
         </main>
         <footer class="footer">
             <p>フッターテキスト</p>
