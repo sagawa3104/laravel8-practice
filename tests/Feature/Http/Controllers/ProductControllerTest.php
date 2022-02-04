@@ -152,7 +152,7 @@ test('品目管理 更新処理_異常(バリデーション)', function () {
     $res = $this->from("/products/{$product->id}/edit")->put("/products/{$product->id}", $data);
 
     // Assert
-    // 一覧画面にリダイレクトしていること
+    // 編集画面にリダイレクトしていること
     $res->assertRedirect("/products/{$product->id}/edit");
     // DBに更新されていないこと
     $this->assertDatabaseHas('products', [
@@ -162,6 +162,46 @@ test('品目管理 更新処理_異常(バリデーション)', function () {
     $this->assertDatabaseMissing('products', [
         'code' => $product->code,
         'name' => $data['product_name'],
+    ]);
+});
+
+test('品目管理 削除処理_正常', function () {
+    // Arrange
+    $product = Product::factory()->create();
+    $this->assertDatabaseHas('products', [
+        'id' => $product->id,
+    ]);
+
+    // Act
+    // POST元URIをセットしてからPOST
+    $res = $this->from("/products/{$product->id}/edit")->delete("/products/{$product->id}");
+
+    // Assert
+    // 一覧画面にリダイレクトしていること
+    $res->assertRedirect("/products");
+    // DBに更新されていること
+    $this->assertDatabaseMissing('products', [
+        'id' => $product->id,
+    ]);
+});
+
+test('品目管理 削除処理_異常(DB整合性)', function () {
+    // Arrange
+    $product = Product::factory()->create();
+    $this->assertDatabaseHas('products', [
+        'id' => $product->id,
+    ]);
+
+    // Act
+    // POST元URIをセットしてからPOST
+    // $res = $this->from("/products/{$product->id}/edit")->delete("/products/{$product->id}");
+
+    // Assert
+    // 一覧画面にリダイレクトしていること
+    // $res->assertRedirect("/products");
+    // DBに更新されていないこと
+    $this->assertDatabaseHas('products', [
+        'id' => $product->id,
     ]);
 });
 
