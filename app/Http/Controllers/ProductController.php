@@ -86,6 +86,12 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         //
+        $input = $request->all();
+
+        $product->name = $input['product_name'];
+        $product->save();
+
+        return redirect(route('products.index'));
     }
 
     /**
