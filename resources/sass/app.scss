@@ -1,15 +1,16 @@
 // ヘッダー
 .header{
     background-color: paleturquoise;
+    font-size: 1rem;
+    height: 48px;
     position: relative;
-    height: 50px;
-    padding: 4px;
+    border-bottom-style:double;
+    border-bottom-width:1px;
+    display: flex;
+    align-items: center;
     &__nav{
-        border-bottom-style:double;
-        border-bottom-width:1px;
         display: flex;
-        font-size: 1.5rem;
-        padding: 0.5rem;
+        width: 100%;
     }
 }
 
@@ -20,9 +21,9 @@
 .side-bar{
     background-color: darkcyan;
     color: ghostwhite;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 48px);
     padding: 0.5rem;
-    top: 50px;
+    top: 48px;
     &__category{
         padding-bottom: 1rem;
         &__label{
@@ -48,10 +49,14 @@
     position: relative;
     &__item{
         display: inline-block;
-        padding-right: 10px;
+        padding-right: 8px;
+    }
+    &--left{
+        padding-left: 16px;
     }
     &--right{
         text-align: right;
+        padding-right: 16px;
     }
 }
 
@@ -99,18 +104,18 @@
     border-width: 1px;
     display: block;
     width: 100%;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-top: 5px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-top: 4px;
 }
 
 .form-label{
-    padding-bottom: 5px;
+    padding-bottom: 4px;
 }
 
 .form{
     &__group{
-        padding-bottom: 20px;
+        padding-bottom: 24px;
     }
 }
 
