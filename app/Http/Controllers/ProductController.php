@@ -17,9 +17,11 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
+        $products = Product::paginate(1);
 
-        return $products;
+        return view('products.index', [
+            'products' => $products
+        ]);
     }
 
     /**
@@ -97,6 +99,5 @@ class ProductController extends Controller
 
     public function attachParts(Request $request, Product $product)
     {
-
     }
 }
