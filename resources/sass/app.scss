@@ -1,12 +1,3 @@
-//ラッパー
-.wrapper{
-    max-width: 1296px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
 // ヘッダー
 .header{
     background-color: paleturquoise;
@@ -22,7 +13,7 @@
     }
 }
 
-.container{
+.flex-container{
     display: flex;
 }
 
@@ -90,9 +81,15 @@
     }
 }
 
+//ラッパー
 .login-wrapper{
     display: flex;
     justify-content: center;
+    max-width: 1296px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .form-input{
