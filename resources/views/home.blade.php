@@ -11,9 +11,12 @@
         <header class="header">
             <p>ヘッダーエリア</p>
         </header>
-        <div class="container">
+        <div class="flex-container">
             <aside class="side-bar">
-                <p>サイドメニューエリア<br><br><br></p>
+                <p>サイドメニューエリア</p>
+                <br>
+                <br>
+                <br>
                 <section class="side-bar__category">
                     <label class="side-bar__category__label">マスタ管理</label>
                     <ul class="side-bar__category__list">

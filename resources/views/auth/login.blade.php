@@ -8,8 +8,8 @@
     </head>
     <body>
         <title>ログイン</title>
-        <main class="wrapper">
-            <div class="login-wrapper">
+        <div class="flex-container">
+            <main class="login-wrapper">
                 <section class="login-form-box">
                     <div class="login-form-box__header">
                         <h1>このアプリにログイン</h1>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="login_form_box__footer"></div>
                 </section>
-            </div>
-        </main>
+            </main>
+        </div>
     </body>
 </html>
