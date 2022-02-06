@@ -9,6 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'code',
+        'name',
+    ];
+
     public function parts()
     {
         return $this->belongsToMany(Part::class, 'product_part');

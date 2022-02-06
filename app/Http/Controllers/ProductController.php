@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::paginate(1);
+        $products = Product::paginate(2);
 
         return view('products.index', [
             'products' => $products
@@ -32,6 +32,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return view('products.create');
     }
 
     /**
@@ -43,6 +44,13 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         //
+        $input = $request->all();
+        Product::create([
+            'code' => $input['product_code'],
+            'name' => $input['product_name'],
+        ]);
+
+        return redirect(route('products.index'));
     }
 
     /**
