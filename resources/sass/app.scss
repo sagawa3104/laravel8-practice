@@ -86,6 +86,28 @@
     }
 }
 
+.form-box{
+    justify-content: center;
+    width:380px;
+    &__header{
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        background-color: powderblue;
+        padding: 1rem;
+    }
+    &__content{
+        background-color: azure;
+        display: flex;
+        padding: 1rem;
+    }
+    &__footer{
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+        background-color: powderblue;
+        padding: 1rem;
+    }
+}
+
 //ラッパー
 .login-wrapper{
     display: flex;
