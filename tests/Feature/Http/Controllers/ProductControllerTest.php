@@ -3,7 +3,7 @@
 use App\Models\Part;
 use App\Models\Product;
 
-uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 test('品目管理 一覧', function () {
     // Arrange

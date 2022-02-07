@@ -135,6 +135,14 @@
     padding-bottom: 4px;
 }
 
+.form-message{
+    display: inline-block;
+    padding: 0.25rem;
+    &--error{
+        color: red;
+    }
+}
+
 .form{
     &__group{
         padding-bottom: 24px;
