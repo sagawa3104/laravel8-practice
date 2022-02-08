@@ -4,7 +4,7 @@ use App\Models\Specification;
 
 uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-test('部位管理 一覧', function () {
+test('仕様管理 一覧', function () {
     // Arrange
     $count = 16;
     Specification::factory()->count($count)->create();
@@ -22,7 +22,7 @@ test('部位管理 一覧', function () {
     expect($specifications->lastPage())->toBe(2);
 });
 
-test('部位管理 登録画面', function () {
+test('仕様管理 登録画面', function () {
     // Arrange
 
     // Act
@@ -33,15 +33,15 @@ test('部位管理 登録画面', function () {
     $res->assertStatus(200);
 });
 
-test('部位管理 登録処理_正常', function () {
+test('仕様管理 登録処理_正常', function () {
     // Arrange
     $data = [
         'specification_code' => 'test_code',
-        'specification_name' => 'test_name'
+        'specification_content' => 'test_content'
     ];
     $this->assertDatabaseMissing('specifications', [
         'code' => $data['specification_code'],
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 
     // Act
@@ -54,19 +54,19 @@ test('部位管理 登録処理_正常', function () {
     // DBに登録されていること
     $this->assertDatabaseHas('specifications', [
         'code' => $data['specification_code'],
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 });
 
-test('部位管理 登録処理_異常(バリデーション)', function () {
+test('仕様管理 登録処理_異常(バリデーション)', function () {
     // Arrange
     $data = [
         'specification_code' => 'test_code',
-        'specification_name' => ''
+        'specification_content' => ''
     ];
     $this->assertDatabaseMissing('specifications', [
         'code' => $data['specification_code'],
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 
     // Act
@@ -79,11 +79,11 @@ test('部位管理 登録処理_異常(バリデーション)', function () {
     // DBに登録されていないこと
     $this->assertDatabaseMissing('specifications', [
         'code' => $data['specification_code'],
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 });
 
-test('部位管理 更新画面', function () {
+test('仕様管理 更新画面', function () {
     // Arrange
     $specification = Specification::factory()->create();
     // Act
@@ -97,21 +97,21 @@ test('部位管理 更新画面', function () {
     });
 });
 
-test('部位管理 更新処理_正常', function () {
+test('仕様管理 更新処理_正常', function () {
     // Arrange
     $specification = Specification::factory()->create([
-        'name' => 'before_test'
+        'content' => 'before_test'
     ]);
     $data = [
-        'specification_name' => 'after_test'
+        'specification_content' => 'after_test'
     ];
     $this->assertDatabaseHas('specifications', [
         'code' => $specification->code,
-        'name' => $specification->name,
+        'content' => $specification->content,
     ]);
     $this->assertDatabaseMissing('specifications', [
         'code' => $specification->code,
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 
     // Act
@@ -124,29 +124,29 @@ test('部位管理 更新処理_正常', function () {
     // DBに更新されていること
     $this->assertDatabaseMissing('specifications', [
         'code' => $specification->code,
-        'name' => $specification->name,
+        'content' => $specification->content,
     ]);
     $this->assertDatabaseHas('specifications', [
         'code' => $specification->code,
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 });
 
-test('部位管理 更新処理_異常(バリデーション)', function () {
+test('仕様管理 更新処理_異常(バリデーション)', function () {
     // Arrange
     $specification = Specification::factory()->create([
-        'name' => 'before_test'
+        'content' => 'before_test'
     ]);
     $data = [
-        'specification_name' => ''
+        'specification_content' => ''
     ];
     $this->assertDatabaseHas('specifications', [
         'code' => $specification->code,
-        'name' => $specification->name,
+        'content' => $specification->content,
     ]);
     $this->assertDatabaseMissing('specifications', [
         'code' => $specification->code,
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 
     // Act
@@ -159,15 +159,15 @@ test('部位管理 更新処理_異常(バリデーション)', function () {
     // DBに更新されていないこと
     $this->assertDatabaseHas('specifications', [
         'code' => $specification->code,
-        'name' => $specification->name,
+        'content' => $specification->content,
     ]);
     $this->assertDatabaseMissing('specifications', [
         'code' => $specification->code,
-        'name' => $data['specification_name'],
+        'content' => $data['specification_content'],
     ]);
 });
 
-test('部位管理 削除処理_正常', function () {
+test('仕様管理 削除処理_正常', function () {
     // Arrange
     $specification = Specification::factory()->create();
     $this->assertDatabaseHas('specifications', [
@@ -187,7 +187,7 @@ test('部位管理 削除処理_正常', function () {
     ]);
 });
 
-// test('部位管理 削除処理_異常(DB整合性)', function () {
+// test('仕様管理 削除処理_異常(DB整合性)', function () {
 //     // Arrange
 //     $specification = Specification::factory()->create();
 //     $this->assertDatabaseHas('specifications', [
@@ -207,11 +207,11 @@ test('部位管理 削除処理_正常', function () {
 //     ]);
 // });
 
-// test('部位管理 品目一覧', function () {
+// test('仕様管理 品目一覧', function () {
 //     // Arrange
 //     $specification = Specification::factory()->create();
 //     $specifications = Specification::factory()->count(5)->create();
-//     //品目-部位中間テーブル生成
+//     //品目-仕様中間テーブル生成
 //     $specificationIds = $specifications->pluck('id')->toArray();
 //     $specification->specifications()->attach($specificationIds);
 //     $specification->refresh();

@@ -16,6 +16,11 @@ class SpecificationController extends Controller
     public function index()
     {
         //
+        $specifications = Specification::paginate(15);
+
+        return view('specifications.index', [
+            'specifications' => $specifications,
+        ]);
     }
 
     /**
@@ -26,6 +31,7 @@ class SpecificationController extends Controller
     public function create()
     {
         //
+        return view('specifications.create');
     }
 
     /**
@@ -37,6 +43,13 @@ class SpecificationController extends Controller
     public function store(StoreSpecificationRequest $request)
     {
         //
+        $input = $request->all();
+        Specification::create([
+            'code' => $input['specification_code'],
+            'content' => $input['specification_content'],
+        ]);
+
+        return redirect(route('specifications.index'));
     }
 
     /**
@@ -58,7 +71,9 @@ class SpecificationController extends Controller
      */
     public function edit(Specification $specification)
     {
-        //
+        return view('specifications.edit', [
+            'specification' => $specification
+        ]);
     }
 
     /**
@@ -71,6 +86,12 @@ class SpecificationController extends Controller
     public function update(UpdateSpecificationRequest $request, Specification $specification)
     {
         //
+        $input = $request->all();
+
+        $specification->content = $input['specification_content'];
+        $specification->save();
+
+        return redirect(route('specifications.index'));
     }
 
     /**
@@ -82,5 +103,8 @@ class SpecificationController extends Controller
     public function destroy(Specification $specification)
     {
         //
+        $specification->delete();
+
+        return redirect(route('specifications.index'));
     }
 }

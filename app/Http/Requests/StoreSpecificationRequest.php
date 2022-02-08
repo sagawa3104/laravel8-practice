@@ -13,7 +13,7 @@ class StoreSpecificationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreSpecificationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'specification_code' => 'required|unique:specifications,code|max:32',
+            'specification_content' => 'required|max:255',
         ];
     }
 }
