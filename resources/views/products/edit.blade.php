@@ -23,7 +23,7 @@
                         </div>
                         <div class="form__group">
                             <label class="form-label" for="name">品目名称:</label>
-                            <input class="form-input" type="text" id="name" name="product_name">
+                            <input class="form-input" type="text" id="name" name="product_name" value="{{$product->name}}">
                             @error('product_name')
                                 <p class="form-message form-message--error">{{ $message }}</p>
                             @enderror
