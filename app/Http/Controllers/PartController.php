@@ -16,6 +16,11 @@ class PartController extends Controller
     public function index()
     {
         //
+        $parts = Part::paginate(15);
+
+        return view('parts.index', [
+            'parts' => $parts,
+        ]);
     }
 
     /**
@@ -26,6 +31,7 @@ class PartController extends Controller
     public function create()
     {
         //
+        return view('parts.create');
     }
 
     /**

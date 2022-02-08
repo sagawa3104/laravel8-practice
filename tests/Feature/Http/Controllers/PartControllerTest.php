@@ -22,16 +22,16 @@ test('部位管理 一覧', function () {
     expect($parts->lastPage())->toBe(2);
 });
 
-// test('部位管理 登録画面', function () {
-//     // Arrange
+test('部位管理 登録画面', function () {
+    // Arrange
 
-//     // Act
-//     $res = $this->get('/products/create');
+    // Act
+    $res = $this->get('/parts/create');
 
-//     // Assert
-//     // httpステータスコードの確認
-//     $res->assertStatus(200);
-// });
+    // Assert
+    // httpステータスコードの確認
+    $res->assertStatus(200);
+});
 
 // test('部位管理 登録処理_正常', function () {
 //     // Arrange
