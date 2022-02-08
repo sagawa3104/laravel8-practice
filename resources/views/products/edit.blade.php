@@ -6,7 +6,7 @@
     <label class="contents__title">品目管理&gt;変更</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button" href="{{ route('products.index') }}">戻る</a>
+            <a class="button button--cancel" href="{{ route('products.index') }}">戻る</a>
         </div>
         <div class="contents__content__form">
             <div class="form-box">
