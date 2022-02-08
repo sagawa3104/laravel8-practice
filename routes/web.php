@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SpecificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +30,5 @@ Route::get('products/{product}/parts', [ProductController::class, 'indexParts'])
 Route::post('products/{product}/parts', [ProductController::class, 'attachParts'])->name('products.parts.attach');
 
 Route::resource('parts', PartController::class);
+
+Route::resource('specifications', SpecificationController::class);

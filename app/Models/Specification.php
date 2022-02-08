@@ -9,6 +9,11 @@ class Specification extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'code',
+        'content',
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_specification');

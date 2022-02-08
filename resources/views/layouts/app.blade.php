@@ -37,10 +37,10 @@
                             <a href="{{ route('products.index') }}">品目管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
-                            <a href="#">部位管理</a>
+                            <a href="{{ route('parts.index') }}">部位管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
-                            <a href="#">仕様管理</a>
+                            <a href="{{ route('specifications.index') }}">仕様管理</a>
                         </li>
                     </ul>
                 </section>
