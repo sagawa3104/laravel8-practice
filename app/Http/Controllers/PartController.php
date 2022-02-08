@@ -16,6 +16,11 @@ class PartController extends Controller
     public function index()
     {
         //
+        $parts = Part::paginate(15);
+
+        return view('parts.index', [
+            'parts' => $parts,
+        ]);
     }
 
     /**
@@ -26,6 +31,7 @@ class PartController extends Controller
     public function create()
     {
         //
+        return view('parts.create');
     }
 
     /**
@@ -37,6 +43,13 @@ class PartController extends Controller
     public function store(StorePartRequest $request)
     {
         //
+        $input = $request->all();
+        Part::create([
+            'code' => $input['part_code'],
+            'name' => $input['part_name'],
+        ]);
+
+        return redirect(route('parts.index'));
     }
 
     /**
@@ -59,6 +72,9 @@ class PartController extends Controller
     public function edit(Part $part)
     {
         //
+        return view('parts.edit', [
+            'part' => $part
+        ]);
     }
 
     /**
@@ -71,6 +87,12 @@ class PartController extends Controller
     public function update(UpdatePartRequest $request, Part $part)
     {
         //
+        $input = $request->all();
+
+        $part->name = $input['part_name'];
+        $part->save();
+
+        return redirect(route('parts.index'));
     }
 
     /**
@@ -82,5 +104,8 @@ class PartController extends Controller
     public function destroy(Part $part)
     {
         //
+        $part->delete();
+
+        return redirect(route('parts.index'));
     }
 }

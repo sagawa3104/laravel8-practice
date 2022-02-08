@@ -13,7 +13,7 @@ class StorePartRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StorePartRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'part_code' => 'required|unique:parts,code|max:32',
+            'part_name' => 'required|max:255',
         ];
     }
 }
