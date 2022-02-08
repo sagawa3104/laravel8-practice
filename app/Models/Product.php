@@ -23,4 +23,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Specification::class, 'product_specification');
     }
+
+    public function recordedProducts()
+    {
+        return $this->hasMany(RecordedProduct::class);
+    }
 }
