@@ -2,6 +2,7 @@
 
 use App\Models\Part;
 use App\Models\Product;
+use App\Models\RecordedProduct;
 use App\Models\Specification;
 
 uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
@@ -48,4 +49,16 @@ test('品目に複数の仕様を設定できる', function () {
 
     // Assert
     expect($product->specifications)->toHaveCount(5);
+});
+
+test('品目に複数の生産実績が存在する', function () {
+    // Arrange
+    $product = Product::first();
+
+    // Act
+    //生産実績生成
+    $recordedProducts = RecordedProduct::factory()->count(5)->for($product)->create();
+
+    // Assert
+    expect($product->recordedProducts)->toHaveCount(5);
 });
