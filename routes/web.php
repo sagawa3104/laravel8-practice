@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 Route::get('/home', function () {
     return view('home');
-})->middleware(['auth']);
+})->middleware(['auth'])->name('home');
 
 Route::resource('products', ProductController::class);
 
