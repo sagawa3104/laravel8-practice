@@ -24,7 +24,7 @@
                     <tr>
                         <td>{{ $product->code }}</td>
                         <td>{{ $product->name }}</td>
-                        <td><a class="button" href={{ route('products.show', [$product->id]) }}>編集</a></td>
+                        <td><a class="button" href={{ route('products.edit', [$product->id]) }}>編集</a></td>
                         <td><a class="button" href={{ route('products.parts.attach', [$product->id]) }}>部位</a></td>
                         <td><a class="button" href={{ route('products.show', [$product->id]) }}>仕様</a></td>
                     </tr>

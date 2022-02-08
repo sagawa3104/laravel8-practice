@@ -93,6 +93,9 @@ test('品目管理 更新画面', function () {
     // Assert
     // httpステータスコードの確認
     $res->assertStatus(200);
+    $res->assertViewHas('product', function(Product $viewProduct) use($product){
+        return $viewProduct->id === $product->id;
+    });
 });
 
 test('品目管理 更新処理_正常', function () {
