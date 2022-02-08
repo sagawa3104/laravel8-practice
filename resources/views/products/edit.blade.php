@@ -53,6 +53,7 @@
                             @method('DELETE')
                             @csrf
                             <button class="button" type="submit">削除</button>
+                            <a class="button button--cancel" href="#!">キャンセル</a>
                         </form>
                     </div>
                 </div>
