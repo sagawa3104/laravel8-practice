@@ -10,10 +10,7 @@
         <title>ログイン</title>
         <header class="header">
             <nav class="header__nav">
-                <ul class="horizontal-list horizontal-list--left">
-                    <li class="horizontal-list__item">left_menu1</li>
-                    <li class="horizontal-list__item">left_menu2</li>
-                </ul>
+                <a class="header__logo" href="{{ route('home') }}">Laravel-sample Project</a>
                 <ul class="horizontal-list horizontal-list--right">
                     <li class="horizontal-list__item">
                         <form method="POST" action="{{route('logout')}}">
@@ -30,7 +27,6 @@
                 <p>サイドメニューエリア</p>
                 <br>
                 <br>
-                <br>
                 <section class="side-bar__category">
                     <label class="side-bar__category__label">マスタ管理</label>
                     <ul class="side-bar__category__list">
@@ -38,7 +34,7 @@
                             <a href="#">工程管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
-                            <a href="#">品目管理</a>
+                            <a href="{{ route('products.index') }}">品目管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
                             <a href="#">部位管理</a>
@@ -48,8 +44,9 @@
                         </li>
                     </ul>
                 </section>
+                <br>
                 <section class="side-bar__category">
-                    <label class="side-bar__category__label">統計管理</label>
+                    <label class="side-bar__category__label">実績管理</label>
                 </section>
             </aside>
             <main class="">
