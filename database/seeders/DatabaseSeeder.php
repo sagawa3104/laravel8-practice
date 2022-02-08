@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Part;
 use App\Models\Product;
+use App\Models\RecordedProduct;
 use App\Models\Specification;
 use App\Models\User;
 use Faker\Generator;
@@ -68,6 +69,12 @@ class DatabaseSeeder extends Seeder
         $specificationIds= $specifications->pluck('id')->toArray();
         $products->each(function($product) use($specificationIds){
             $product->specifications()->sync($specificationIds);
+        });
+
+
+        // 生産実績作成
+        $products->each(function($product){
+            $recordedProducts = RecordedProduct::factory()->count(10)->for($product)->create();
         });
     }
 }
