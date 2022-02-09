@@ -31,7 +31,7 @@
                     <label class="side-bar__category__label">マスタ管理</label>
                     <ul class="side-bar__category__list">
                         <li class="side-bar__category__list__item">
-                            <a href="#">工程管理</a>
+                            <a href="{{ route('processes.index') }}">工程管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
                             <a href="{{ route('products.index') }}">品目管理</a>
@@ -47,6 +47,11 @@
                 <br>
                 <section class="side-bar__category">
                     <label class="side-bar__category__label">実績管理</label>
+                    <ul class="side-bar__category__list">
+                        <li class="side-bar__category__list__item">
+                            <a href="{{ route('recorded-products.index') }}">生産実績管理</a>
+                        </li>
+                    </ul>
                 </section>
             </aside>
             <main class="">
