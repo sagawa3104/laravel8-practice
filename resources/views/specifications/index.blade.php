@@ -22,7 +22,7 @@
                     @foreach ($specifications as $specification)
                     <tr>
                         <td>{{ $specification->code }}</td>
-                        <td>{{ $specification->name }}</td>
+                        <td>{{ $specification->content }}</td>
                         <td><a class="button" href={{ route('specifications.edit', [$specification->id]) }}>編集</a></td>
                         <td><a class="button" href="#">品目</a></td>
                     </tr>
