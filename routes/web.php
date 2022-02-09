@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RecordedProductController;
 use App\Http\Controllers\SpecificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,5 @@ Route::post('products/{product}/parts', [ProductController::class, 'attachParts'
 Route::resource('parts', PartController::class);
 
 Route::resource('specifications', SpecificationController::class);
+
+Route::resource('recorded-products', RecordedProductController::class);
