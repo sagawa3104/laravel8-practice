@@ -13,7 +13,7 @@ class UpdateRecordedProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,7 @@ class UpdateRecordedProductRequest extends FormRequest
     {
         return [
             //
+            'product' => 'required|exists:products,id',
         ];
     }
 }

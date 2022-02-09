@@ -9,6 +9,12 @@ class RecordedProduct extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'recorded_number',
+        'product_id',
+        'is_inspected',
+    ];
+
     public function product(){
 
             return $this->belongsTo(Product::class);

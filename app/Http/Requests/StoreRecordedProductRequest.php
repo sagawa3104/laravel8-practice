@@ -13,7 +13,7 @@ class StoreRecordedProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,8 @@ class StoreRecordedProductRequest extends FormRequest
     {
         return [
             //
+            'recorded_number' => 'required|unique:recorded_products,recorded_number|max:32',
+            'product' => 'required|exists:products,id',
         ];
     }
 }
