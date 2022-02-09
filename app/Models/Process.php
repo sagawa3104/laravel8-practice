@@ -13,4 +13,9 @@ class Process extends Model
         'code',
         'name',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'inspecting_forms')->as('inspectingForm');
+    }
 }

@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $users = User::all();
 
         //工程生成
-        $Processes = Process::factory()->count(3)->state(new Sequence(function($sequence){
+        $processes = Process::factory()->count(3)->state(new Sequence(function($sequence){
             $num = $sequence->index +1;
             return [
                 'name'=> 'process_name'. sprintf('%04d', $num),
@@ -50,6 +50,21 @@ class DatabaseSeeder extends Seeder
                 'code'=> 'product_code'. sprintf('%04d', $num),
             ];
         }))->create();
+
+        //工程-品目中間テーブル生成
+        $productIds= $products->pluck('id')->toArray();
+        $clProcesses= $processes->splice(0,2);
+        $clProcesses->each(function($process) use($productIds){
+            $process->products()->syncWithPivotValues($productIds, [
+                'form' => 'CHECKLIST'
+            ]);
+        });
+        $mpProcesses= $processes->splice(0,2);
+        $mpProcesses->each(function($process) use($productIds){
+            $process->products()->syncWithPivotValues($productIds, [
+                'form' => 'MAPPING'
+            ]);
+        });
 
         //部位生成
         $parts = Part::factory()->count(5)->state(new Sequence(function($sequence){

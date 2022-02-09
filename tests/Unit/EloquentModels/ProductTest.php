@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Part;
+use App\Models\Process;
 use App\Models\Product;
 use App\Models\RecordedProduct;
 use App\Models\Specification;
@@ -11,6 +12,27 @@ beforeEach(function () {
         'name' => 'test product',
         'code' => 'TESTPRODUCT01',
     ]);
+});
+
+test('品目に複数の工程を設定できる', function () {
+    // Arrange
+    $product = Product::first();
+    //工程生成
+    $processes = Process::factory()->count(5)->create();
+
+    //まだデータはない
+    expect($product->processes)->toHaveCount(0);
+
+    // Action
+    //品目-工程中間テーブル生成
+    $processIds= $processes->pluck('id')->toArray();
+    $product->processes()->attach($processIds, [
+        'form' => 'MAPPING'
+    ]);
+    $product->refresh();
+
+    // Assert
+    expect($product->processes)->toHaveCount(5);
 });
 
 test('品目に複数の部位を設定できる', function () {
