@@ -40,4 +40,4 @@ Route::resource('specifications', SpecificationController::class);
 
 Route::resource('recorded-products', RecordedProductController::class);
 
-Route::get('inspecting-forms', [InspectingFormController::class, 'index'])->name('inspecting-forms.index');
+Route::resource('inspecting-forms', InspectingFormController::class);

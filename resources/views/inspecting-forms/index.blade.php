@@ -15,6 +15,7 @@
                         <th>カラム1</th>
                         <th>カラム2</th>
                         <th>カラム3</th>
+                        <th>カラム4</th>
                     </tr>
                 </thead>
                 <tbody class="list-table__body">
@@ -23,6 +24,7 @@
                         <td>{{ $inspectingForm->process->name }}</td>
                         <td>{{ $inspectingForm->product->name }}</td>
                         <td>{{ $inspectingForm->form }}</td>
+                        <td><a class="button" href={{ route('inspecting-forms.edit', [$inspectingForm->id]) }}>編集</a></td>
                     </tr>
                     @endforeach
                 </tbody>

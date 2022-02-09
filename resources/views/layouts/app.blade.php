@@ -43,7 +43,7 @@
                             <a href="{{ route('specifications.index') }}">仕様管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
-                            <a href="{{ route('specifications.index') }}">検査方式管理</a>
+                            <a href="{{ route('inspecting-forms.index') }}">検査方式管理</a>
                         </li>
                     </ul>
                 </section>
