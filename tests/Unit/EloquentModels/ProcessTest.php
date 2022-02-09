@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\InspectingForm;
 use App\Models\Process;
 use App\Models\Product;
 
@@ -24,4 +25,5 @@ test('工程に複数の品目を設定できる', function () {
 
     // Assert
     expect($process->products)->toHaveCount(5);
+    expect($process->products)->each(fn($product) => $product->inspectingForm->toBeInstanceOf(InspectingForm::class));
 });

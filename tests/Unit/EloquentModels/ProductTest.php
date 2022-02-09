@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\InspectingForm;
 use App\Models\Part;
 use App\Models\Process;
 use App\Models\Product;
@@ -33,6 +34,8 @@ test('品目に複数の工程を設定できる', function () {
 
     // Assert
     expect($product->processes)->toHaveCount(5);
+    expect($product->processes)->each(fn($process) => $process->inspectingForm->toBeInstanceOf(InspectingForm::class));
+
 });
 
 test('品目に複数の部位を設定できる', function () {
