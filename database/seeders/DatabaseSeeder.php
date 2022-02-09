@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         $processes = Process::factory()->count(3)->state(new Sequence(function($sequence){
             $num = $sequence->index +1;
             return [
-                'name'=> 'process_name'. sprintf('%04d', $num),
+                'name'=> '工程名称'. sprintf('%04d', $num),
                 'code'=> 'process_code'. sprintf('%04d', $num),
             ];
         }))->create();
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         $products = Product::factory()->count(3)->state(new Sequence(function($sequence){
             $num = $sequence->index +1;
             return [
-                'name'=> 'product_name'. sprintf('%04d', $num),
+                'name'=> '品目名称'. sprintf('%04d', $num),
                 'code'=> 'product_code'. sprintf('%04d', $num),
             ];
         }))->create();
@@ -56,13 +56,13 @@ class DatabaseSeeder extends Seeder
         $clProcesses= $processes->splice(0,2);
         $clProcesses->each(function($process) use($productIds){
             $process->products()->syncWithPivotValues($productIds, [
-                'form' => 'CHECKLIST'
+                'form' => 'MAPPING'
             ]);
         });
         $mpProcesses= $processes->splice(0,2);
         $mpProcesses->each(function($process) use($productIds){
             $process->products()->syncWithPivotValues($productIds, [
-                'form' => 'MAPPING'
+                'form' => 'CHECKLIST'
             ]);
         });
 
@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
         $parts = Part::factory()->count(5)->state(new Sequence(function($sequence){
             $num = $sequence->index +1;
             return [
-                'name'=> 'part_name'. sprintf('%04d', $num),
+                'name'=> '部位名称'. sprintf('%04d', $num),
                 'code'=> 'part_code'. sprintf('%04d', $num),
             ];
         }))->create();
@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
             $num = $sequence->index +1;
             return [
                 'code'=> 'specification_code'. sprintf('%04d', $num),
-                'content'=> 'specification_content'. sprintf('%04d', $num),
+                'content'=> '仕様内容'. sprintf('%04d', $num),
             ];
         }))->create();
 
