@@ -13,7 +13,7 @@ class StoreProcessRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreProcessRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'process_code' => 'required|unique:processes,code|max:32',
+            'process_name' => 'required|max:255',
         ];
     }
 }

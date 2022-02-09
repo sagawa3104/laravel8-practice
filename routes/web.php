@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PartController;
+use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RecordedProductController;
 use App\Http\Controllers\SpecificationController;
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
+
+Route::resource('processes', ProcessController::class);
 
 Route::resource('products', ProductController::class);
 

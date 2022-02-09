@@ -16,6 +16,11 @@ class ProcessController extends Controller
     public function index()
     {
         //
+        $processes = Process::paginate(15);
+
+        return view('processes.index', [
+            'processes' => $processes,
+        ]);
     }
 
     /**
@@ -26,6 +31,7 @@ class ProcessController extends Controller
     public function create()
     {
         //
+        return view('processes.create');
     }
 
     /**
@@ -37,6 +43,13 @@ class ProcessController extends Controller
     public function store(StoreProcessRequest $request)
     {
         //
+        $input = $request->all();
+        Process::create([
+            'code' => $input['process_code'],
+            'name' => $input['process_name'],
+        ]);
+
+        return redirect(route('processes.index'));
     }
 
     /**
@@ -59,6 +72,9 @@ class ProcessController extends Controller
     public function edit(Process $process)
     {
         //
+        return view('processes.edit', [
+            'process' => $process
+        ]);
     }
 
     /**
@@ -71,6 +87,12 @@ class ProcessController extends Controller
     public function update(UpdateProcessRequest $request, Process $process)
     {
         //
+        $input = $request->all();
+
+        $process->name = $input['process_name'];
+        $process->save();
+
+        return redirect(route('processes.index'));
     }
 
     /**
@@ -82,5 +104,8 @@ class ProcessController extends Controller
     public function destroy(Process $process)
     {
         //
+        $process->delete();
+
+        return redirect(route('processes.index'));
     }
 }

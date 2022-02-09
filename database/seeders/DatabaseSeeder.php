@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Part;
+use App\Models\Process;
 use App\Models\Product;
 use App\Models\RecordedProduct;
 use App\Models\Specification;
@@ -31,6 +32,15 @@ class DatabaseSeeder extends Seeder
         ])->create();
         User::factory()->count(1)->unverified()->create();
         $users = User::all();
+
+        //工程生成
+        $Processes = Process::factory()->count(3)->state(new Sequence(function($sequence){
+            $num = $sequence->index +1;
+            return [
+                'name'=> 'process_name'. sprintf('%04d', $num),
+                'code'=> 'process_code'. sprintf('%04d', $num),
+            ];
+        }))->create();
 
         //品目生成
         $products = Product::factory()->count(3)->state(new Sequence(function($sequence){

@@ -13,7 +13,7 @@ class UpdateProcessRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,7 @@ class UpdateProcessRequest extends FormRequest
     {
         return [
             //
+            'process_name' => 'required|max:255',
         ];
     }
 }
