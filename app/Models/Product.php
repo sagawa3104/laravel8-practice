@@ -19,6 +19,11 @@ class Product extends Model
         return $this->belongsToMany(Part::class, 'product_part');
     }
 
+    public function processes()
+    {
+        return $this->belongsToMany(Process::class, 'inspecting_forms')->as('inspectingForm')->using(InspectingForm::class);
+    }
+
     public function specifications()
     {
         return $this->belongsToMany(Specification::class, 'product_specification');

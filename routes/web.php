@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InspectingFormController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProductController;
@@ -38,3 +39,5 @@ Route::resource('parts', PartController::class);
 Route::resource('specifications', SpecificationController::class);
 
 Route::resource('recorded-products', RecordedProductController::class);
+
+Route::resource('inspecting-forms', InspectingFormController::class);
