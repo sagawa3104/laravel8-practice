@@ -3,28 +3,28 @@
 @section('content')
 
 <div class="contents-wrapper">
-    <label class="contents__title">仕様管理&gt;変更</label>
+    <label class="contents__title">マッピング項目管理&gt;変更</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button button--cancel" href="{{ route('specifications.index') }}">戻る</a>
+            <a class="button button--cancel" href="{{ route('mapping-items.index', [$processPart->id]) }}">戻る</a>
         </div>
         <div class="contents__content__form">
             <div class="form-box">
                 <div class="form-box__header">
-                    <h1>仕様情報を入力</h1>
+                    <h1>マッピング項目情報を入力</h1>
                 </div>
                 <div class="form-box__content">
-                    <form class="form" method="POST" action="{{ route('specifications.update', [$specification->id]) }}">
+                    <form class="form" method="POST" action="{{ route('mapping-items.update', [$processPart->id, $mappingItem->id]) }}">
                         @method('PUT')
                         @csrf
                         <div class="form__group">
-                            <label class="form-label" for="code">仕様コード:</label>
-                            <input class="form-input form-input" type="text" id="code" name="specification_code" value="{{$specification->code}}" disabled>
+                            <label class="form-label" for="code">マッピング項目コード:</label>
+                            <input class="form-input form-input" type="text" id="code" name="mapping_item_code" value="{{$mappingItem->code}}" disabled>
                         </div>
                         <div class="form__group">
-                            <label class="form-label" for="content">仕様名称:</label>
-                            <input class="form-input" type="text" id="content" name="specification_content" value="{{$specification->content}}">
-                            @error('specification_content')
+                            <label class="form-label" for="content">マッピング項目名称:</label>
+                            <input class="form-input" type="text" id="content" name="mapping_item_content" value="{{$mappingItem->content}}">
+                            @error('mapping_item_content')
                                 <p class="form-message form-message--error">{{ $message }}</p>
                             @enderror
                         </div>
@@ -43,13 +43,13 @@
                 <a href="#!" class="modal-wrapper__window__close-mark">X</a>
                 <div class="form-box">
                     <div class="form-box__header">
-                        <h1>{{$specification->code. ':' .$specification->content}}</h1>
+                        <h1>{{$mappingItem->code. ':' .$mappingItem->content}}</h1>
                     </div>
                     <div class="form-box__content">
                         <p>本当に削除しますか？</p>
                     </div>
                     <div class="form-box__footer">
-                        <form method="POST" action="{{ route('specifications.destroy', [$specification->id])}}" >
+                        <form method="POST" action="{{ route('mapping-items.destroy', [$processPart->id, $mappingItem->id])}}" >
                             @method('DELETE')
                             @csrf
                             <button class="button" type="submit">削除</button>

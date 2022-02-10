@@ -3,6 +3,7 @@
 use App\Models\MappingItem;
 use App\Models\Part;
 use App\Models\Process;
+use App\Models\ProcessPart;
 
 uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
 
@@ -69,151 +70,169 @@ test('マッピング項目管理 登録処理_正常', function () {
     ]);
 });
 
-// test('マッピング項目管理 登録処理_異常(バリデーション)', function () {
-//     // Arrange
-//     $data = [
-//         'mapping_item_code' => 'test_code',
-//         'mapping_item_content' => ''
-//     ];
-//     $this->assertDatabaseMissing('specifications', [
-//         'code' => $data['mapping_item_code'],
-//         'content' => $data['mapping_item_content'],
-//     ]);
+test('マッピング項目管理 登録処理_異常(バリデーション)', function () {
+    // Arrange
+    $part = Part::factory()->has(Process::factory())->create();
+    $processPart = $part->processes->first()->processPart;
+    $data = [
+        'mapping_item_code' => 'test_code',
+        'mapping_item_content' => ''
+    ];
+    $this->assertDatabaseMissing('mapping_items', [
+        'process_part_id' => $processPart->id,
+        'code' => $data['mapping_item_code'],
+        'content' => $data['mapping_item_content'],
+    ]);
 
-//     // Act
-//     // POST元URIをセットしてからPOST
-//     $res = $this->from('/specifications/create')->post('/specifications', $data);
+    // Act
+    // POST元URIをセットしてからPOST
+    $res = $this->from("/processes-parts/{$processPart->id}/mapping-items/create")->post("/processes-parts/{$processPart->id}/mapping-items", $data);
 
-//     // Assert
-//     // 自画面をリダイレクトしていること
-//     $res->assertRedirect('/specifications/create');
-//     // DBに登録されていないこと
-//     $this->assertDatabaseMissing('specifications', [
-//         'code' => $data['mapping_item_code'],
-//         'content' => $data['mapping_item_content'],
-//     ]);
-// });
+    // Assert
+    // 自画面をリダイレクトしていること
+    $res->assertRedirect("/processes-parts/{$processPart->id}/mapping-items/create");
+    // DBに登録されていないこと
+    $this->assertDatabaseMissing('mapping_items', [
+        'code' => $data['mapping_item_code'],
+        'content' => $data['mapping_item_content'],
+    ]);
+});
 
-// test('マッピング項目管理 更新画面', function () {
-//     // Arrange
-//     $specification = MappingItem::factory()->create();
-//     // Act
-//     $res = $this->get("/specifications/{$specification->id}/edit");
+test('マッピング項目管理 更新画面', function () {
+    // Arrange
+    $part = Part::factory()->has(Process::factory())->create();
+    $processPart = $part->processes->first()->processPart;
+    $mappingItem = MappingItem::factory()->for($processPart)->create();
+    // Act
+    $res = $this->get("/processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}/edit");
 
-//     // Assert
-//     // httpステータスコードの確認
-//     $res->assertStatus(200);
-//     $res->assertViewHas('specification', function(MappingItem $viewMappingItem) use($specification){
-//         return $viewMappingItem->id === $specification->id;
-//     });
-// });
+    // Assert
+    // httpステータスコードの確認
+    $res->assertStatus(200);
+    $res->assertViewHas('processPart', function(ProcessPart $viewProcessPart) use($processPart){
+        return $viewProcessPart->id === $processPart->id;
+    });
+    $res->assertViewHas('mappingItem', function(MappingItem $viewMappingItem) use($mappingItem){
+        return $viewMappingItem->id === $mappingItem->id;
+    });
 
-// test('マッピング項目管理 更新処理_正常', function () {
-//     // Arrange
-//     $specification = MappingItem::factory()->create([
-//         'content' => 'before_test'
-//     ]);
-//     $data = [
-//         'mapping_item_content' => 'after_test'
-//     ];
-//     $this->assertDatabaseHas('specifications', [
-//         'code' => $specification->code,
-//         'content' => $specification->content,
-//     ]);
-//     $this->assertDatabaseMissing('specifications', [
-//         'code' => $specification->code,
-//         'content' => $data['mapping_item_content'],
-//     ]);
+});
 
-//     // Act
-//     // POST元URIをセットしてからPOST
-//     $res = $this->from("/specifications/{$specification->id}/edit")->put("/specifications/{$specification->id}", $data);
+test('マッピング項目管理 更新処理_正常', function () {
+    // Arrange
+    $part = Part::factory()->has(Process::factory())->create();
+    $processPart = $part->processes->first()->processPart;
+    $mappingItem = MappingItem::factory()->for($processPart)->create(['content' => 'before']);
+    $data = [
+        'mapping_item_content' => 'after'
+    ];
+    $this->assertDatabaseMissing('mapping_items', [
+        'process_part_id' => $processPart->id,
+        'code' => $mappingItem->code,
+        'content' => $data['mapping_item_content'],
+    ]);
+    $this->assertDatabaseHas('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $mappingItem->content,
+    ]);
+    $this->assertDatabaseMissing('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $data['mapping_item_content'],
+    ]);
 
-//     // Assert
-//     // 一覧画面にリダイレクトしていること
-//     $res->assertRedirect('/specifications');
-//     // DBに更新されていること
-//     $this->assertDatabaseMissing('specifications', [
-//         'code' => $specification->code,
-//         'content' => $specification->content,
-//     ]);
-//     $this->assertDatabaseHas('specifications', [
-//         'code' => $specification->code,
-//         'content' => $data['mapping_item_content'],
-//     ]);
-// });
+    // Act
+    // POST元URIをセットしてからPOST
+    $res = $this->from("/processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}/edit")->put("processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}", $data);
 
-// test('マッピング項目管理 更新処理_異常(バリデーション)', function () {
-//     // Arrange
-//     $specification = MappingItem::factory()->create([
-//         'content' => 'before_test'
-//     ]);
-//     $data = [
-//         'mapping_item_content' => ''
-//     ];
-//     $this->assertDatabaseHas('specifications', [
-//         'code' => $specification->code,
-//         'content' => $specification->content,
-//     ]);
-//     $this->assertDatabaseMissing('specifications', [
-//         'code' => $specification->code,
-//         'content' => $data['mapping_item_content'],
-//     ]);
+    // Assert
+    // 一覧画面にリダイレクトしていること
+    $res->assertRedirect("/processes-parts/{$processPart->id}/mapping-items");
+    // DBに更新されていること
+    $this->assertDatabaseMissing('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $mappingItem->content,
+    ]);
+    $this->assertDatabaseHas('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $data['mapping_item_content'],
+    ]);
+});
 
-//     // Act
-//     // POST元URIをセットしてからPOST
-//     $res = $this->from("/specifications/{$specification->id}/edit")->put("/specifications/{$specification->id}", $data);
+test('マッピング項目管理 更新処理_異常(バリデーション)', function () {
+    // Arrange
+    $part = Part::factory()->has(Process::factory())->create();
+    $processPart = $part->processes->first()->processPart;
+    $mappingItem = MappingItem::factory()->for($processPart)->create(['content' => 'before']);
+    $data = [
+        'mapping_item_content' => ''
+    ];
+    $this->assertDatabaseMissing('mapping_items', [
+        'process_part_id' => $processPart->id,
+        'code' => $mappingItem->code,
+        'content' => $data['mapping_item_content'],
+    ]);
+    $this->assertDatabaseHas('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $mappingItem->content,
+    ]);
+    $this->assertDatabaseMissing('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $data['mapping_item_content'],
+    ]);
 
-//     // Assert
-//     // 編集画面にリダイレクトしていること
-//     $res->assertRedirect("/specifications/{$specification->id}/edit");
-//     // DBに更新されていないこと
-//     $this->assertDatabaseHas('specifications', [
-//         'code' => $specification->code,
-//         'content' => $specification->content,
-//     ]);
-//     $this->assertDatabaseMissing('specifications', [
-//         'code' => $specification->code,
-//         'content' => $data['mapping_item_content'],
-//     ]);
-// });
+    // Act
+    // POST元URIをセットしてからPOST
+    $res = $this->from("/processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}/edit")->put("processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}", $data);
 
-// test('マッピング項目管理 削除処理_正常', function () {
-//     // Arrange
-//     $specification = MappingItem::factory()->create();
-//     $this->assertDatabaseHas('specifications', [
-//         'id' => $specification->id,
-//     ]);
+    // Assert
+    // 自画面にリダイレクトしていること
+    $res->assertRedirect("/processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}/edit");
+    // DBに更新されていないこと
+    $this->assertDatabaseHas('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $mappingItem->content,
+    ]);
+    $this->assertDatabaseMissing('mapping_items', [
+        'code' => $mappingItem->code,
+        'content' => $data['mapping_item_content'],
+    ]);
+});
 
-//     // Act
-//     // POST元URIをセットしてからPOST
-//     $res = $this->from("/specifications/{$specification->id}/edit")->delete("/specifications/{$specification->id}");
+test('マッピング項目管理 削除処理_正常', function () {
+    // Arrange
+    $part = Part::factory()->has(Process::factory())->create();
+    $processPart = $part->processes->first()->processPart;
+    $mappingItem = MappingItem::factory()->for($processPart)->create();
 
-//     // Assert
-//     // 一覧画面にリダイレクトしていること
-//     $res->assertRedirect("/specifications");
-//     // DBに更新されていること
-//     $this->assertDatabaseMissing('specifications', [
-//         'id' => $specification->id,
-//     ]);
-// });
+    // Act
+    // POST元URIをセットしてからDELETE
+    $res = $this->from("/processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}/edit")->delete("processes-parts/{$processPart->id}/mapping-items/{$mappingItem->id}");
+
+    // Assert
+    // 一覧画面にリダイレクトしていること
+    $res->assertRedirect("/processes-parts/{$processPart->id}/mapping-items");
+    // DBに更新されていること
+    $this->assertDatabaseMissing('mapping_items', [
+        'id' => $mappingItem->id,
+    ]);
+});
 
 // test('マッピング項目管理 削除処理_異常(DB整合性)', function () {
 //     // Arrange
 //     $specification = MappingItem::factory()->create();
-//     $this->assertDatabaseHas('specifications', [
+//     $this->assertDatabaseHas('mapping_items', [
 //         'id' => $specification->id,
 //     ]);
 
 //     // Act
 //     // POST元URIをセットしてからPOST
-//     // $res = $this->from("/specifications/{$specification->id}/edit")->delete("/specifications/{$specification->id}");
+//     // $res = $this->from("/mapping-items/{$specification->id}/edit")->delete("/mapping-items/{$specification->id}");
 
 //     // Assert
 //     // 一覧画面にリダイレクトしていること
-//     // $res->assertRedirect("/specifications");
+//     // $res->assertRedirect("/mapping-items");
 //     // DBに更新されていないこと
-//     $this->assertDatabaseHas('specifications', [
+//     $this->assertDatabaseHas('mapping_items', [
 //         'id' => $specification->id,
 //     ]);
 // });

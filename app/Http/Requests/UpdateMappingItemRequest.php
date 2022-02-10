@@ -13,7 +13,7 @@ class UpdateMappingItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateMappingItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'mapping_item_content' => 'required|max:255',
         ];
     }
 }

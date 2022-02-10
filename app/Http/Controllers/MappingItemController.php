@@ -72,34 +72,53 @@ class MappingItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MappingItem  $mappingItem
+     * @param  \App\Models\ProcessPart  $process_part
+     * @param  \App\Models\Mapping_item  $mapping_item
      * @return \Illuminate\Http\Response
      */
-    public function edit(MappingItem $mappingItem)
+    public function edit(ProcessPart $process_part, MappingItem $mapping_item)
     {
         //
+        return view('mapping-items.edit',[
+            'processPart' => $process_part,
+            'mappingItem' => $mapping_item,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateMappingItemRequest  $request
-     * @param  \App\Models\MappingItem  $mappingItem
+     * @param  \App\Models\ProcessPart  $process_part
+     * @param  \App\Models\MappingItem  $mapping_item
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMappingItemRequest $request, MappingItem $mappingItem)
+    public function update(UpdateMappingItemRequest $request, ProcessPart $process_part, MappingItem $mapping_item)
     {
         //
+        $input = $request->all();
+        $mapping_item->content = $input['mapping_item_content'];
+        $mapping_item->save();
+
+        return redirect(route('mapping-items.index',[
+            $process_part->id
+        ]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MappingItem  $mappingItem
+     * @param  \App\Models\ProcessPart  $process_part
+     * @param  \App\Models\MappingItem  $mapping_item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MappingItem $mappingItem)
+    public function destroy(ProcessPart $process_part, MappingItem $mapping_item)
     {
         //
+        $mapping_item->delete();
+
+        return redirect(route('mapping-items.index',[
+            $process_part->id
+        ]));
     }
 }
