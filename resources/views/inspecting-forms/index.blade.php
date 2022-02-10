@@ -6,7 +6,7 @@
     <label class="contents__title">検査方式管理</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button" href="{{ route('products.create') }}">登録</a>
+            {{-- <a class="button" href="{{ route('products.create') }}">登録</a> --}}
         </div>
         <div class="contents__content__table">
             <table class="list-table">
