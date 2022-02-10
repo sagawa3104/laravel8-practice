@@ -16,7 +16,7 @@ class Part extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_part');
+        return $this->belongsToMany(Product::class, 'product_part')->withPivot(['id'])->as('productPart')->using(ProductPart::class);;
     }
 
     public function processes()

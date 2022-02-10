@@ -208,18 +208,3 @@ test('品目管理 削除処理_異常(DB整合性)', function () {
     ]);
 });
 
-test('品目管理 部位一覧', function () {
-    // Arrange
-    $product = Product::factory()->create();
-    $parts = Part::factory()->count(5)->create();
-    //品目-部位中間テーブル生成
-    $partIds = $parts->pluck('id')->toArray();
-    $product->parts()->attach($partIds);
-    $product->refresh();
-
-    // Act
-    $res = $this->get("/products/{$product->id}/parts");
-
-    // Assert
-    $res->assertStatus(200);
-});

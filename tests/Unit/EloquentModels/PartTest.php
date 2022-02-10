@@ -4,6 +4,7 @@ use App\Models\Part;
 use App\Models\Process;
 use App\Models\ProcessPart;
 use App\Models\Product;
+use App\Models\ProductPart;
 
 uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
 beforeEach(function () {
@@ -27,6 +28,10 @@ test('部位に複数の品目を設定できる', function () {
 
     // Assert
     expect($part->products)->toHaveCount(5);
+    expect($part->products)->each(function($product){
+        $product->productPart->toBeInstanceOf(ProductPart::class);
+        $product->productPart->id->toBeInt();
+    });
 });
 
 test('部位に複数の工程を設定できる', function () {

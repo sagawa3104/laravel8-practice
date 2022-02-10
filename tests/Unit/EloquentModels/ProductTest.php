@@ -4,6 +4,7 @@ use App\Models\InspectingForm;
 use App\Models\Part;
 use App\Models\Process;
 use App\Models\Product;
+use App\Models\ProductPart;
 use App\Models\RecordedProduct;
 use App\Models\Specification;
 
@@ -54,7 +55,10 @@ test('品目に複数の部位を設定できる', function () {
     $product->refresh();
 
     // Assert
-    expect($product->parts)->toHaveCount(5);
+    expect($product->parts)->each(function($part){
+        $part->productPart->toBeInstanceOf(ProductPart::class);
+        $part->productPart->id->toBeInt();
+    });
 });
 
 test('品目に複数の仕様を設定できる', function () {
