@@ -13,7 +13,7 @@ class InspectingFormController extends Controller
     //
     public function index()
     {
-        $inspectingForms = InspectingForm::all();
+        $inspectingForms = InspectingForm::paginate(15);
         return view('inspecting-forms.index', [
             'inspectingForms' => $inspectingForms,
         ]);
