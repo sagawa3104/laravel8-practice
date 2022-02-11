@@ -19,4 +19,9 @@ class ProcessPart extends Pivot
     {
         return $this->belongsTo(Part::class);
     }
+
+    public function mappingItems()
+    {
+        return $this->hasMany(MappingItem::class, 'process_part_id');
+    }
 }

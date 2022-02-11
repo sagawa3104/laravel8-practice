@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MappingItem;
 use App\Models\Part;
 use App\Models\Process;
 use App\Models\ProcessPart;
@@ -33,3 +34,21 @@ test('部位モデルを取得できる', function () {
     // Assert
     expect($processPart->part)->toBeInstanceOf(Part::class);
 });
+
+test('マッピング項目モデルを取得できる', function () {
+    // Arrange
+    $processPart = ProcessPart::first();
+
+    expect($processPart->mappingItems)->toHaveCount(0);
+    // Action
+    MappingItem::factory()->count(5)->for($processPart)->create();
+    $processPart->refresh();
+
+    // Assert
+    expect($processPart->mappingItems)->toHaveCount(5);;
+    expect($processPart->mappingItems)->each(function($mappingItem){
+        $mappingItem->toBeInstanceOf(MappingItem::class);
+    });
+});
+
+
