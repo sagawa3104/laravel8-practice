@@ -18,4 +18,9 @@ class Process extends Model
     {
         return $this->belongsToMany(Product::class, 'inspecting_forms')->as('inspectingForm')->using(InspectingForm::class);
     }
+
+    public function parts()
+    {
+        return $this->belongsToMany(Part::class, 'process_part')->as('processPart')->using(ProcessPart::class);
+    }
 }

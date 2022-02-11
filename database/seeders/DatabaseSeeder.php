@@ -81,6 +81,13 @@ class DatabaseSeeder extends Seeder
             $product->parts()->sync($partIds);
         });
 
+        //工程-部位中間テーブル生成
+        $processes = Process::all();
+        $partIds= $parts->pluck('id')->toArray();
+        $processes->each(function($process) use($partIds){
+            $process->parts()->sync($partIds);
+        });
+
         //仕様生成
         $specifications = Specification::factory()->count(5)->state(new Sequence(function($sequence){
             $num = $sequence->index +1;
