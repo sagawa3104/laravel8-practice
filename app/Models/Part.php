@@ -21,6 +21,6 @@ class Part extends Model
 
     public function processes()
     {
-        return $this->belongsToMany(Process::class, 'process_part')->as('processPart')->using(ProcessPart::class);
+        return $this->belongsToMany(Process::class, 'process_part')->withPivot(['id'])->as('processPart')->using(ProcessPart::class);
     }
 }

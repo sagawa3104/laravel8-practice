@@ -50,5 +50,8 @@ test('工程に複数の部位を設定できる', function () {
 
     // Assert
     expect($process->parts)->toHaveCount(5);
-    expect($process->parts)->each(fn($part) => $part->processPart->toBeInstanceOf(ProcessPart::class));
+    expect($process->parts)->each(function($part){
+        $part->processPart->toBeInstanceOf(ProcessPart::class);
+        $part->processPart->id->toBeInt();
+    });
 });
