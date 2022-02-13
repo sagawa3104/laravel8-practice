@@ -3,10 +3,11 @@
 @section('content')
 
 <div class="contents-wrapper">
-    <label class="contents__title">部位別工程管理</label>
+    <label class="contents__title">マッピング項目管理</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button button--cancel" href="{{ route('parts.index') }}">戻る</a>
+            <a class="button button--cancel" href="{{ route('parts.processes.index', [$processPart->part_id]) }}">戻る</a>
+            <a class="button" href="{{ route('mapping-items.create', [$processPart->id]) }}">登録</a>
         </div>
         <div class="contents__content__table">
             <table class="list-table">
@@ -15,18 +16,14 @@
                         <th>カラム1</th>
                         <th>カラム2</th>
                         <th>カラム3</th>
-                        <th>カラム4</th>
-                        <th>カラム5</th>
                     </tr>
                 </thead>
                 <tbody class="list-table__body">
-                    @foreach ($part->processes as $process)
+                    @foreach ($mappingItems as $mappingItem)
                     <tr>
-                        <td>{{ $process->code }}</td>
-                        <td>{{ $process->name }}</td>
-                        <td>{{ $process->processPart->mappingItems->count() }}</td>
-                        <td><a class="button" href={{ route('parts.processes.edit', [$part->id, $process->id]) }}>編集</a></td>
-                        <td><a class="button" href={{ route('mapping-items.index', [$process->processPart->id]) }}>マッピング項目</a></td>
+                        <td>{{ $mappingItem->code }}</td>
+                        <td>{{ $mappingItem->content }}</td>
+                        <td><a class="button" href={{ route('mapping-items.edit', [$processPart->id, $mappingItem->id]) }}>編集</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -35,7 +32,7 @@
             </table>
         </div>
         {{-- ペジネータを作る --}}
-        {{-- {{$partProcesses->links('pagination::bootstrap-4')}} --}}
+        {{$mappingItems->links('pagination::bootstrap-4')}}
     </div>
 </div>
 @endsection

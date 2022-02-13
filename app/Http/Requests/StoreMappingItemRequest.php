@@ -13,7 +13,7 @@ class StoreMappingItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreMappingItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'mapping_item_code' => 'required|unique:mapping_items,code|max:32',
+            'mapping_item_content' => 'required|max:255',
         ];
     }
 }

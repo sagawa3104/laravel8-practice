@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InspectingFormController;
+use App\Http\Controllers\MappingItemController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProcessPartController;
@@ -38,6 +39,7 @@ Route::post('products/{product}/parts', [ProductController::class, 'attachParts'
 Route::get('parts/{part}/processes', [PartController::class, 'indexProcesses'])->name('parts.processes.index');
 Route::get('parts/{part}/processes/{process}', [PartController::class, 'indexProcesses'])->name('parts.processes.edit');
 Route::resource('parts', PartController::class);
+Route::resource('processes-parts/{process_part}/mapping-items', MappingItemController::class);
 
 Route::resource('specifications', SpecificationController::class);
 
