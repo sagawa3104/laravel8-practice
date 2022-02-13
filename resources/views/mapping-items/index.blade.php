@@ -3,10 +3,11 @@
 @section('content')
 
 <div class="contents-wrapper">
-    <label class="contents__title">部位管理</label>
+    <label class="contents__title">マッピング項目管理</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button" href="{{ route('parts.create') }}">登録</a>
+            <a class="button button--cancel" href="{{ route('parts.processes.index', [$processPart->part_id]) }}">戻る</a>
+            <a class="button" href="{{ route('mapping-items.create', [$processPart->id]) }}">登録</a>
         </div>
         <div class="contents__content__table">
             <table class="list-table">
@@ -15,18 +16,14 @@
                         <th>カラム1</th>
                         <th>カラム2</th>
                         <th>カラム3</th>
-                        <th>カラム4</th>
-                        <th>カラム5</th>
                     </tr>
                 </thead>
                 <tbody class="list-table__body">
-                    @foreach ($parts as $part)
+                    @foreach ($mappingItems as $mappingItem)
                     <tr>
-                        <td>{{ $part->code }}</td>
-                        <td>{{ $part->name }}</td>
-                        <td><a class="button" href={{ route('parts.edit', [$part->id]) }}>編集</a></td>
-                        <td><a class="button" href="#">品目</a></td>
-                        <td><a class="button" href="{{ route('parts.processes.index', [$part->id]) }}">工程</a></td>
+                        <td>{{ $mappingItem->code }}</td>
+                        <td>{{ $mappingItem->content }}</td>
+                        <td><a class="button" href={{ route('mapping-items.edit', [$processPart->id, $mappingItem->id]) }}>編集</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -35,7 +32,7 @@
             </table>
         </div>
         {{-- ペジネータを作る --}}
-        {{$parts->links('pagination::bootstrap-4')}}
+        {{$mappingItems->links('pagination::bootstrap-4')}}
     </div>
 </div>
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Part;
+use App\Models\Process;
 
 uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
 
@@ -20,6 +21,23 @@ test('部位管理 一覧', function () {
     // 取得データの確認
     expect($parts->total())->toBe($count);
     expect($parts->lastPage())->toBe(2);
+});
+
+test('部位別管理 一覧', function () {
+    // Arrange
+    $count = 3;
+    $part = Part::factory()->has(Process::factory()->count($count))->create();
+
+    // Act
+    $res = $this->get("/parts/{$part->id}/processes");
+
+    // Assert
+    // httpステータスコードの確認
+    $res->assertStatus(200);
+    // 取得データの確認
+    $res->assertViewHas('part', function($part) use($count) {
+        return $part->processes->count() == $count;
+    });
 });
 
 test('部位管理 登録画面', function () {

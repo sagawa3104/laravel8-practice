@@ -24,6 +24,19 @@ class PartController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexProcesses(Part $part)
+    {
+        //
+        return view('parts.processes.index', [
+            'part' => $part,
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

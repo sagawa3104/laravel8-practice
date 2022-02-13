@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="contents-wrapper">
-    <label class="contents__title">部位管理</label>
+    <label class="contents__title">部位別工程管理</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button" href="{{ route('parts.create') }}">登録</a>
+            <a class="button button--cancel" href="{{ route('parts.index') }}">戻る</a>
         </div>
         <div class="contents__content__table">
             <table class="list-table">
@@ -20,13 +20,13 @@
                     </tr>
                 </thead>
                 <tbody class="list-table__body">
-                    @foreach ($parts as $part)
+                    @foreach ($part->processes as $process)
                     <tr>
-                        <td>{{ $part->code }}</td>
-                        <td>{{ $part->name }}</td>
-                        <td><a class="button" href={{ route('parts.edit', [$part->id]) }}>編集</a></td>
-                        <td><a class="button" href="#">品目</a></td>
-                        <td><a class="button" href="{{ route('parts.processes.index', [$part->id]) }}">工程</a></td>
+                        <td>{{ $process->code }}</td>
+                        <td>{{ $process->name }}</td>
+                        <td>{{ $process->processPart->mappingItems->count() }}</td>
+                        <td><a class="button" href={{ route('parts.processes.edit', [$part->id, $process->id]) }}>編集</a></td>
+                        <td><a class="button" href={{ route('mapping-items.index', [$process->processPart->id]) }}>マッピング項目</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -35,7 +35,7 @@
             </table>
         </div>
         {{-- ペジネータを作る --}}
-        {{$parts->links('pagination::bootstrap-4')}}
+        {{-- {{$partProcesses->links('pagination::bootstrap-4')}} --}}
     </div>
 </div>
 @endsection

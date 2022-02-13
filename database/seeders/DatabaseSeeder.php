@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\MappingItem;
 use App\Models\Part;
 use App\Models\Process;
+use App\Models\ProcessPart;
 use App\Models\Product;
 use App\Models\RecordedProduct;
 use App\Models\Specification;
@@ -79,6 +81,25 @@ class DatabaseSeeder extends Seeder
         $partIds= $parts->pluck('id')->toArray();
         $products->each(function($product) use($partIds){
             $product->parts()->sync($partIds);
+        });
+
+        //工程-部位中間テーブル生成
+        $processes = Process::all();
+        $partIds= $parts->pluck('id')->toArray();
+        $processes->each(function($process) use($partIds){
+            $process->parts()->sync($partIds);
+        });
+
+        //マッピング項目生成
+        $processParts = ProcessPart::all();
+        $processParts->each(function($processPart, $index){
+            $mappingItems = MappingItem::factory()->count(3)->for($processPart)->state(new Sequence(function ($sequence) use ($index) {
+                $num = ($sequence->index + 1) + $index * 3;
+                return [
+                    'code' => 'MI_' . sprintf('%04d', $num),
+                    'content' => '検査項目' . sprintf('%04d', $num),
+                ];
+            }))->create();
         });
 
         //仕様生成
