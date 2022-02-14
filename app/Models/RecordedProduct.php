@@ -15,8 +15,13 @@ class RecordedProduct extends Model
         'is_inspected',
     ];
 
-    public function product(){
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
-            return $this->belongsTo(Product::class);
+    public function processes()
+    {
+        return $this->belongsToMany(Process::class, 'inspections')->as('inspection')->using(Inspection::class);
     }
 }

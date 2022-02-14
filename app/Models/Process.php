@@ -23,4 +23,9 @@ class Process extends Model
     {
         return $this->belongsToMany(Part::class, 'process_part')->withPivot(['id'])->as('processPart')->using(ProcessPart::class);
     }
+
+    public function recordedProducts()
+    {
+        return $this->belongsToMany(RecordedProduct::class, 'inspections')->as('inspection')->using(Inspection::class);
+    }
 }

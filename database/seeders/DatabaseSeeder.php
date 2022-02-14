@@ -120,13 +120,19 @@ class DatabaseSeeder extends Seeder
 
         // 生産実績作成
         $products->each(function($product, $index){
-            $recordedProducts = RecordedProduct::factory()->count(10)->for($product)->state(new Sequence(function($sequence) use($index){
+            RecordedProduct::factory()->count(10)->for($product)->state(new Sequence(function($sequence) use($index){
                 $num = ($sequence->index +1)+ $index*10;
                 return [
                     'recorded_number'=> 'RN_'. sprintf('%04d', $num),
                 ];
             }))->create();
+        });
 
+        //検査実績作成
+        $recordedProducts = RecordedProduct::all();
+        $processIds = Process::all()->pluck('id')->toArray();
+        $recordedProducts->each(function($recordedProduct) use($processIds){
+            $recordedProduct->processes()->attach($processIds);
         });
     }
 }
