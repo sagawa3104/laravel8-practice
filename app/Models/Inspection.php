@@ -18,4 +18,10 @@ class Inspection extends Pivot
     {
         return $this->belongsTo(Process::class);
     }
+
+    public function inspectingForm()
+    {
+        $product = $this->recordedProduct->product;
+        return $this->process->products()->find($product->id)->inspectingForm->form;
+    }
 }

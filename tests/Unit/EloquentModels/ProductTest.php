@@ -35,7 +35,11 @@ test('品目に複数の工程を設定できる', function () {
 
     // Assert
     expect($product->processes)->toHaveCount(5);
-    expect($product->processes)->each(fn($process) => $process->inspectingForm->toBeInstanceOf(InspectingForm::class));
+    expect($product->processes)->each(function($process) {
+        $process->inspectingForm->toBeInstanceOf(InspectingForm::class);
+        $process->inspectingForm->id->toBeInt();
+        $process->inspectingForm->form->toBeString();
+    });
 
 });
 

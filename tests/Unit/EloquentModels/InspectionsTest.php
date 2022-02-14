@@ -35,3 +35,16 @@ test('生産実績モデルを取得できる', function () {
     // Assert
     expect($inspection->recordedProduct)->toBeInstanceOf(RecordedProduct::class);
 });
+
+test('検査方式を取得できる', function () {
+    // Arrange
+    $process = Process::first();
+    $process->products()->attach(Product::first()->id, ['form' => 'CHECKLIST']);
+    // Action
+    $inspection = Inspection::first();
+
+    // Assert
+    expect($inspection->inspectingForm())->toBe('CHECKLIST');
+});
+
+

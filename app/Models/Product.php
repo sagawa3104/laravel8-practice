@@ -21,7 +21,7 @@ class Product extends Model
 
     public function processes()
     {
-        return $this->belongsToMany(Process::class, 'inspecting_forms')->as('inspectingForm')->using(InspectingForm::class);
+        return $this->belongsToMany(Process::class, 'inspecting_forms')->withPivot(['id', 'form'])->as('inspectingForm')->using(InspectingForm::class);
     }
 
     public function specifications()
