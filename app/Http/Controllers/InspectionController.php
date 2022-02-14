@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreinspectionRequest;
 use App\Http\Requests\UpdateinspectionRequest;
-use App\Models\inspection;
+use App\Models\Inspection;
 
 class InspectionController extends Controller
 {
@@ -16,6 +16,11 @@ class InspectionController extends Controller
     public function index()
     {
         //
+        $inspections = Inspection::paginate(15);
+
+        return view('inspections.index', [
+            'inspections' => $inspections,
+        ]);
     }
 
     /**
@@ -31,10 +36,10 @@ class InspectionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreinspectionRequest  $request
+     * @param  \App\Http\Requests\StoreInspectionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreinspectionRequest $request)
+    public function store(StoreInspectionRequest $request)
     {
         //
     }
@@ -42,10 +47,10 @@ class InspectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\inspection  $inspection
+     * @param  \App\Models\Inspection  $inspection
      * @return \Illuminate\Http\Response
      */
-    public function show(inspection $inspection)
+    public function show(Inspection $inspection)
     {
         //
     }
@@ -53,22 +58,33 @@ class InspectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\inspection  $inspection
+     * @param  \App\Models\Inspection  $inspection
      * @return \Illuminate\Http\Response
      */
-    public function edit(inspection $inspection)
+    public function edit(Inspection $inspection)
     {
         //
+        $parts = $inspection->recordedProduct->product->parts;
+        $process = $inspection;
+        $parts->each(function($part) use($process) {
+            $mappingItems = $part->processes()->find($process->id)->processPart->mappingItems;
+            $part->mapping_items = $mappingItems;
+        });
+
+        return view('inspections.edit', [
+            'inspection' => $inspection,
+            'parts' => $parts,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateinspectionRequest  $request
-     * @param  \App\Models\inspection  $inspection
+     * @param  \App\Http\Requests\UpdateInspectionRequest  $request
+     * @param  \App\Models\Inspection  $inspection
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateinspectionRequest $request, inspection $inspection)
+    public function update(UpdateInspectionRequest $request, Inspection $inspection)
     {
         //
     }
@@ -76,10 +92,10 @@ class InspectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\inspection  $inspection
+     * @param  \App\Models\Inspection  $inspection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(inspection $inspection)
+    public function destroy(Inspection $inspection)
     {
         //
     }

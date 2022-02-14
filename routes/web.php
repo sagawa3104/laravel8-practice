@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\InspectingFormController;
+use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\MappingItemController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProcessController;
-use App\Http\Controllers\ProcessPartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductPartController;
 use App\Http\Controllers\RecordedProductController;
@@ -47,3 +47,5 @@ Route::resource('specifications', SpecificationController::class);
 Route::resource('recorded-products', RecordedProductController::class);
 
 Route::resource('inspecting-forms', InspectingFormController::class);
+
+Route::resource('inspections', InspectionController::class);
