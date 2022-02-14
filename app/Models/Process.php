@@ -26,6 +26,6 @@ class Process extends Model
 
     public function recordedProducts()
     {
-        return $this->belongsToMany(RecordedProduct::class, 'inspections')->as('inspection')->using(Inspection::class);
+        return $this->belongsToMany(RecordedProduct::class, 'inspections')->withPivot(['id'])->as('inspection')->using(Inspection::class);
     }
 }

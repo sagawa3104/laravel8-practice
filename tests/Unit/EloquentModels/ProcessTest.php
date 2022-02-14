@@ -82,6 +82,6 @@ test('工程に複数の生産実績を設定できる', function () {
     expect($process->recordedProducts)->toHaveCount(5);
     expect($process->recordedProducts)->each(function($recordedProduct){
         $recordedProduct->inspection->toBeInstanceOf(Inspection::class);
-        // $recordedProduct->inspection->id->toBeInt();
+        $recordedProduct->inspection->id->toBeInt();
     });
 });

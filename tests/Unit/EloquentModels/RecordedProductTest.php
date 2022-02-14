@@ -40,6 +40,6 @@ test('生産実績に複数の工程を設定できる', function () {
     expect($recordedProduct->processes)->toHaveCount(5);
     expect($recordedProduct->processes)->each(function($process){
         $process->inspection->toBeInstanceOf(Inspection::class);
-        // $process->inspection->id->toBeInt();
+        $process->inspection->id->toBeInt();
     });
 });
