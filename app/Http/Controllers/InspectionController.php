@@ -65,7 +65,7 @@ class InspectionController extends Controller
     {
         //
         $parts = $inspection->recordedProduct->product->parts;
-        $process = $inspection;
+        $process = $inspection->process;
         $parts->each(function($part) use($process) {
             $mappingItems = $part->processes()->find($process->id)->processPart->mappingItems;
             $part->mapping_items = $mappingItems;
