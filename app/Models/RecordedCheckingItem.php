@@ -18,4 +18,9 @@ class RecordedCheckingItem extends Model
     {
         return $this->belongsTo(MappingItem::class);
     }
+
+    public function itemable()
+    {
+        return $this->morphTo();
+    }
 }

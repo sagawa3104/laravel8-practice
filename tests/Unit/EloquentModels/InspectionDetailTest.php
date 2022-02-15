@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\RecordedCheckingItem;
 use App\Models\RecordedMappingItem;
 use App\Models\RecordedProduct;
+use App\Models\Specification;
 
 uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
 
@@ -16,7 +17,9 @@ beforeEach(function () {
     $product = Product::factory()->create();
     $process = Process::factory()->create();
     $part = Part::factory()->create();
+    $specification = Specification::factory()->create();
 
+    $product->specifications()->attach($specification->id);
     $product->parts()->attach($part->id);
     $process->parts()->attach($part->id);
 
@@ -69,11 +72,12 @@ test('チェック項目明細モデルを取得できる', function () {
     $process = Process::first();
     // 検査方式設定
     $process->products()->attach(Product::first()->id, ['form' => 'CHECKLIST']);
-    // チェック項目設定
+    // 仕様
+    $specification = Specification::first();
 
     // 検査実績明細の作成
     $inspection = Inspection::first();
-    InspectionDetail::factory()->for($inspection)->has(RecordedCheckingItem::factory())->create();
+    InspectionDetail::factory()->for($inspection)->has(RecordedCheckingItem::factory()->for($specification, 'itemable'))->create();
 
     // Action
     $inspection->refresh();

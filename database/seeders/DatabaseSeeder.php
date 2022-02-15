@@ -134,8 +134,14 @@ class DatabaseSeeder extends Seeder
 
         // 特別仕様
         $recordedProducts = RecordedProduct::all();
-        $recordedProducts->each(function($recordedProduct){
-            SpecialSpecification::factory()->count(4)->for($recordedProduct)->create();
+        $recordedProducts->each(function($recordedProduct, $index){
+            SpecialSpecification::factory()->count(4)->for($recordedProduct)->state(new Sequence(function($sequence) use($index){
+                $num = ($sequence->index +1)+ $index*4;
+                return [
+                    'code'=> 'SS_'. sprintf('%04d', $num),
+                    'content'=> '特別仕様_'. sprintf('%04d', $num),
+                ];
+            }))->create();
         });
 
         //検査実績作成
@@ -156,8 +162,16 @@ class DatabaseSeeder extends Seeder
                         'mapping_item_id' => $mappingItems->random()->id,
                     ]))->create();
                 }elseif($inspection->inspectingForm() == 'CHECKLIST'){
-                    InspectionDetail::factory()->count(10)->for($inspection)->has(RecordedCheckingItem::factory())->create();
-
+                    $specifications = $inspection->recordedProduct->product->specifications;
+                    $specialSpecifications = $inspection->recordedProduct->specialSpecifications;
+                    // 品目仕様のCL項目
+                    $specifications->each(function($specification) use($inspection) {
+                        InspectionDetail::factory()->for($inspection)->has(RecordedCheckingItem::factory()->for($specification, 'itemable'))->create();
+                    });
+                    // 特別仕様のCL項目
+                    $specialSpecifications->each(function($specialSpecification) use($inspection) {
+                        InspectionDetail::factory()->for($inspection)->has(RecordedCheckingItem::factory()->for($specialSpecification, 'itemable'))->create();
+                    });
                 }
             });
         });

@@ -18,4 +18,9 @@ class SpecialSpecification extends Model
     {
         return $this->belongsTo(RecordedProduct::class);
     }
+
+    public function recordedCheckingItems()
+    {
+        return $this->morphMany(RecordedCheckingItem::class, 'itemable');
+    }
 }

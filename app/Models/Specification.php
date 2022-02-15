@@ -18,4 +18,9 @@ class Specification extends Model
     {
         return $this->belongsToMany(Product::class, 'product_specification')->withPivot(['id'])->as('productSpecification')->using(ProductSpecification::class);
     }
+
+    public function recordedCheckingItems()
+    {
+        return $this->morphMany(RecordedCheckingItem::class, 'itemable');
+    }
 }
