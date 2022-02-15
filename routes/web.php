@@ -8,6 +8,7 @@ use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductPartController;
 use App\Http\Controllers\ProductSpecificationController;
+use App\Http\Controllers\ReactController;
 use App\Http\Controllers\RecordedProductController;
 use App\Http\Controllers\SpecificationController;
 use Illuminate\Support\Facades\Route;
@@ -51,3 +52,5 @@ Route::resource('recorded-products', RecordedProductController::class);
 Route::resource('inspecting-forms', InspectingFormController::class);
 
 Route::resource('inspections', InspectionController::class);
+
+Route::get('react', [ReactController::class, 'index'])->name('react.index');
