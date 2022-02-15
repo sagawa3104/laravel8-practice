@@ -55,7 +55,7 @@
                             <a href="{{ route('recorded-products.index') }}">生産実績管理</a>
                         </li>
                         <li class="side-bar__category__list__item">
-                            <a href="#">検査実績管理</a>
+                            <a href="{{ route('inspections.index') }}">検査実績管理</a>
                         </li>
                     </ul>
                 </section>

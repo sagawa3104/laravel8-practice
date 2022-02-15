@@ -2,12 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\InspectionDetail;
 use App\Models\MappingItem;
 use App\Models\Part;
 use App\Models\Process;
 use App\Models\ProcessPart;
 use App\Models\Product;
+use App\Models\RecordedCheckingItem;
+use App\Models\RecordedMappingItem;
 use App\Models\RecordedProduct;
+use App\Models\SpecialSpecification;
 use App\Models\Specification;
 use App\Models\User;
 use Faker\Generator;
@@ -120,13 +124,56 @@ class DatabaseSeeder extends Seeder
 
         // 生産実績作成
         $products->each(function($product, $index){
-            $recordedProducts = RecordedProduct::factory()->count(10)->for($product)->state(new Sequence(function($sequence) use($index){
+            RecordedProduct::factory()->count(10)->for($product)->state(new Sequence(function($sequence) use($index){
                 $num = ($sequence->index +1)+ $index*10;
                 return [
                     'recorded_number'=> 'RN_'. sprintf('%04d', $num),
                 ];
             }))->create();
+        });
 
+        // 特別仕様
+        $recordedProducts = RecordedProduct::all();
+        $recordedProducts->each(function($recordedProduct, $index){
+            SpecialSpecification::factory()->count(4)->for($recordedProduct)->state(new Sequence(function($sequence) use($index){
+                $num = ($sequence->index +1)+ $index*4;
+                return [
+                    'code'=> 'SS_'. sprintf('%04d', $num),
+                    'content'=> '特別仕様_'. sprintf('%04d', $num),
+                ];
+            }))->create();
+        });
+
+        //検査実績作成
+        $recordedProducts = RecordedProduct::all();
+        $processIds = Process::all()->pluck('id')->toArray();
+        $recordedProducts->each(function($recordedProduct) use($processIds){
+            $recordedProduct->processes()->attach($processIds);
+            // 検査実績明細の作成
+            $recordedProduct->processes->each(function ($process){
+                $inspection = $process->inspection;
+                if($inspection->inspectingForm() == 'MAPPING'){
+                    $productParts = $inspection->recordedProduct->product->parts;
+                    $parts = $process->parts()->whereIn('part_id', $productParts->pluck('id')->toArray())->get();
+                    $mappingItems = $parts->map(function($part){
+                        return $part->processPart->mappingItems;
+                    })->flatten(1);
+                    InspectionDetail::factory()->count(5)->for($inspection)->has(RecordedMappingItem::factory()->state([
+                        'mapping_item_id' => $mappingItems->random()->id,
+                    ]))->create();
+                }elseif($inspection->inspectingForm() == 'CHECKLIST'){
+                    $specifications = $inspection->recordedProduct->product->specifications;
+                    $specialSpecifications = $inspection->recordedProduct->specialSpecifications;
+                    // 品目仕様のCL項目
+                    $specifications->each(function($specification) use($inspection) {
+                        InspectionDetail::factory()->for($inspection)->has(RecordedCheckingItem::factory()->for($specification, 'itemable'))->create();
+                    });
+                    // 特別仕様のCL項目
+                    $specialSpecifications->each(function($specialSpecification) use($inspection) {
+                        InspectionDetail::factory()->for($inspection)->has(RecordedCheckingItem::factory()->for($specialSpecification, 'itemable'))->create();
+                    });
+                }
+            });
         });
     }
 }

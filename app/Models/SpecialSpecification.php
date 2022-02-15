@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Specification extends Model
+class SpecialSpecification extends Model
 {
     use HasFactory;
 
@@ -14,9 +14,9 @@ class Specification extends Model
         'content',
     ];
 
-    public function products()
+    public function recordedProduct()
     {
-        return $this->belongsToMany(Product::class, 'product_specification')->withPivot(['id'])->as('productSpecification')->using(ProductSpecification::class);
+        return $this->belongsTo(RecordedProduct::class);
     }
 
     public function recordedCheckingItems()

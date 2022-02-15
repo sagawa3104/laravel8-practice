@@ -18,4 +18,9 @@ class MappingItem extends Model
     {
         return $this->belongsTo(ProcessPart::class);
     }
+
+    public function recordedMappingItems()
+    {
+        return $this->hasMany(RecordedMappingItem::class);
+    }
 }

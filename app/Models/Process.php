@@ -16,11 +16,16 @@ class Process extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'inspecting_forms')->as('inspectingForm')->using(InspectingForm::class);
+        return $this->belongsToMany(Product::class, 'inspecting_forms')->withPivot(['id', 'form'])->as('inspectingForm')->using(InspectingForm::class);
     }
 
     public function parts()
     {
         return $this->belongsToMany(Part::class, 'process_part')->withPivot(['id'])->as('processPart')->using(ProcessPart::class);
+    }
+
+    public function recordedProducts()
+    {
+        return $this->belongsToMany(RecordedProduct::class, 'inspections')->withPivot(['id'])->as('inspection')->using(Inspection::class);
     }
 }
