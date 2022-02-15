@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\RecordedCheckingItem;
 use App\Models\RecordedMappingItem;
 use App\Models\RecordedProduct;
+use App\Models\SpecialSpecification;
 use App\Models\Specification;
 use App\Models\User;
 use Faker\Generator;
@@ -129,6 +130,12 @@ class DatabaseSeeder extends Seeder
                     'recorded_number'=> 'RN_'. sprintf('%04d', $num),
                 ];
             }))->create();
+        });
+
+        // 特別仕様
+        $recordedProducts = RecordedProduct::all();
+        $recordedProducts->each(function($recordedProduct){
+            SpecialSpecification::factory()->count(4)->for($recordedProduct)->create();
         });
 
         //検査実績作成
