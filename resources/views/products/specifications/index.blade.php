@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="contents-wrapper">
-    <label class="contents__title">品目管理</label>
+    <label class="contents__title">品目別仕様管理</label>
     <div class="contents__content">
         <div class="contents__content__actions">
-            <a class="button" href="{{ route('products.create') }}">登録</a>
+            <a class="button button--cancel" href="{{ route('products.index') }}">戻る</a>
         </div>
         <div class="contents__content__table">
             <table class="list-table">
@@ -15,18 +15,14 @@
                         <th>カラム1</th>
                         <th>カラム2</th>
                         <th>カラム3</th>
-                        <th>カラム4</th>
-                        <th>カラム5</th>
                     </tr>
                 </thead>
                 <tbody class="list-table__body">
-                    @foreach ($products as $product)
+                    @foreach ($productSpecifications as $productSpecification)
                     <tr>
-                        <td>{{ $product->code }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td><a class="button" href={{ route('products.edit', [$product->id]) }}>編集</a></td>
-                        <td><a class="button" href={{ route('products.parts.attach', [$product->id]) }}>部位</a></td>
-                        <td><a class="button" href={{ route('products.specifications.index', [$product->id]) }}>仕様</a></td>
+                        <td>{{ $productSpecification->productSpecification->product->name }}</td>
+                        <td>{{ $productSpecification->content }}</td>
+                        <td><a class="button" href="#">編集</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -35,7 +31,7 @@
             </table>
         </div>
         {{-- ペジネータを作る --}}
-        {{$products->links('pagination::bootstrap-4')}}
+        {{$productSpecifications->links('pagination::bootstrap-4')}}
     </div>
 </div>
 @endsection

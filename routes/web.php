@@ -7,6 +7,7 @@ use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductPartController;
+use App\Http\Controllers\ProductSpecificationController;
 use App\Http\Controllers\RecordedProductController;
 use App\Http\Controllers\SpecificationController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::resource('processes', ProcessController::class);
 Route::resource('products', ProductController::class);
 
 Route::get('products/{product}/parts', [ProductPartController::class, 'index'])->name('products.parts.index');
+Route::get('products/{product}/specifications', [ProductSpecificationController::class, 'index'])->name('products.specifications.index');
 
 Route::post('products/{product}/parts', [ProductController::class, 'attachParts'])->name('products.parts.attach');
 
