@@ -19,6 +19,11 @@ class Inspection extends Pivot
         return $this->belongsTo(Process::class);
     }
 
+    public function inspectionDetails()
+    {
+        return $this->hasMany(InspectionDetail::class, 'inspection_id');
+    }
+
     public function inspectingForm()
     {
         $product = $this->recordedProduct->product;

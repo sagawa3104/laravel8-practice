@@ -5,29 +5,13 @@ use App\Models\InspectionDetail;
 use App\Models\MappingItem;
 use App\Models\Part;
 use App\Models\Process;
-use App\Models\ProcessPart;
 use App\Models\Product;
 use App\Models\RecordedMappingItem;
 use App\Models\RecordedProduct;
 
 uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-test('工程部位モデルを取得できる', function () {
-    // Arrange
-    //工程・部位生成
-    $process = Process::factory()->create();
-    $part = Part::factory()->create();
-    //部位-工程中間テーブル生成
-    $process->parts()->attach($part->id);
-
-    // Action
-    $mappgingItem = MappingItem::factory()->for(ProcessPart::first())->create();
-
-    // Assert
-    expect($mappgingItem->processPart)->toBeInstanceOf(ProcessPart::class);
-});
-
-test('マッピング項目明細モデルを複数取得できる', function () {
+test('検査実績明細モデルを取得できる', function () {
     // Arrange
     $product = Product::factory()->create();
     $process = Process::factory()->create();
@@ -46,17 +30,14 @@ test('マッピング項目明細モデルを複数取得できる', function ()
     $mappingItem = MappingItem::factory()->for($processPart)->create();
     // 検査実績明細の作成
     $inspection = Inspection::first();
-    InspectionDetail::factory()->count(5)->for($inspection)->has(RecordedMappingItem::factory()->state([
+    InspectionDetail::factory()->for($inspection)->has(RecordedMappingItem::factory()->state([
         'mapping_item_id' => $mappingItem->id,
     ]))->create();
 
     // Action
-    $mappingItem->refresh();
+    $recordedMappingItem = RecordedMappingItem::first();
 
     // Assert
-    expect($mappingItem->recordedMappingItems)->toHaveCount(5)->each(function($recordedMappingItem){
-        $recordedMappingItem->toBeInstanceOf(RecordedMappingItem::class);
-    });
+    expect($recordedMappingItem)->inspectionDetail->toBeInstanceOf(InspectionDetail::class);
 });
-
 

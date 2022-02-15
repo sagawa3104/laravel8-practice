@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\InspectionDetail;
 use App\Models\MappingItem;
 use App\Models\Part;
 use App\Models\Process;
 use App\Models\ProcessPart;
 use App\Models\Product;
+use App\Models\RecordedCheckingItem;
+use App\Models\RecordedMappingItem;
 use App\Models\RecordedProduct;
 use App\Models\Specification;
 use App\Models\User;
@@ -133,6 +136,23 @@ class DatabaseSeeder extends Seeder
         $processIds = Process::all()->pluck('id')->toArray();
         $recordedProducts->each(function($recordedProduct) use($processIds){
             $recordedProduct->processes()->attach($processIds);
+            // 検査実績明細の作成
+            $recordedProduct->processes->each(function ($process){
+                $inspection = $process->inspection;
+                if($inspection->inspectingForm() == 'MAPPING'){
+                    $productParts = $inspection->recordedProduct->product->parts;
+                    $parts = $process->parts()->whereIn('part_id', $productParts->pluck('id')->toArray())->get();
+                    $mappingItems = $parts->map(function($part){
+                        return $part->processPart->mappingItems;
+                    })->flatten(1);
+                    InspectionDetail::factory()->count(5)->for($inspection)->has(RecordedMappingItem::factory()->state([
+                        'mapping_item_id' => $mappingItems->random()->id,
+                    ]))->create();
+                }elseif($inspection->inspectingForm() == 'CHECKLIST'){
+                    InspectionDetail::factory()->count(10)->for($inspection)->has(RecordedCheckingItem::factory())->create();
+
+                }
+            });
         });
     }
 }
