@@ -2,6 +2,7 @@
 
 use App\Models\Specification;
 use App\Models\Product;
+use App\Models\ProductSpecification;
 
 uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
 beforeEach(function () {
@@ -24,5 +25,8 @@ test('仕様に複数の品目を設定できる', function () {
     $specification->refresh();
 
     // Assert
-    expect($specification->products)->toHaveCount(5);
+    expect($specification->products)->each(function($product) {
+        $product->productSpecification->toBeInstanceOf(ProductSpecification::class);
+        $product->productSpecification->id->toBeInt();
+    });
 });

@@ -5,6 +5,7 @@ use App\Models\Part;
 use App\Models\Process;
 use App\Models\Product;
 use App\Models\ProductPart;
+use App\Models\ProductSpecification;
 use App\Models\RecordedProduct;
 use App\Models\Specification;
 
@@ -81,7 +82,10 @@ test('品目に複数の仕様を設定できる', function () {
     $product->refresh();
 
     // Assert
-    expect($product->specifications)->toHaveCount(5);
+    expect($product->specifications)->each(function($specification){
+        $specification->productSpecification->toBeInstanceOf(ProductSpecification::class);
+        $specification->productSpecification->id->toBeInt();
+    });
 });
 
 test('品目に複数の生産実績が存在する', function () {
