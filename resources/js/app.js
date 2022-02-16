@@ -1,3 +1,3 @@
 require('./bootstrap');
 
-require('./components/example');
+require('./components/InspectionSearch');

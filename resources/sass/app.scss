@@ -144,6 +144,7 @@
         -webkit-appearance: menulist-button;
         -moz-appearance: menulist-button;
         appearance: menulist-button;
+        padding-bottom: 2px;
     }
     &:disabled{
         background-color: #e9ecef;
@@ -165,7 +166,12 @@
 
 .form{
     &__group{
+        padding-right: 2rem;
         padding-bottom: 24px;
+    }
+    &--flex{
+        display: flex;
+        align-items: end;
     }
 }
 
@@ -279,5 +285,29 @@
 .modal-wrapper:target{
     visibility: visible;
     transition:opacity .1s visibility .1s;
+}
+
+
+// react周り
+.react-wrapper{
+    max-width: 1296px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.search-aria{
+    padding-top: 1rem;
+}
+.result-aria{
+    padding-top: 1rem;
+}
+
+.search-box{
+    background-color: azure;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    border-style: ridge;
 }
 
