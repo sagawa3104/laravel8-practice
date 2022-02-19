@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="{{asset('css/destyle.css')}}" media="all">
         <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}" media="all">
+        @yield('scripts')
     </head>
     <body>
         <title>ログイン</title>
@@ -64,7 +65,7 @@
                     <label class="side-bar__category__label">統計管理</label>
                     <ul class="side-bar__category__list">
                         <li class="side-bar__category__list__item">
-                            <a href="#">品目別</a>
+                            <a href="statics/sample-page.html">品目別</a>
                         </li>
                     </ul>
                 </section>

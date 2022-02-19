@@ -29,4 +29,26 @@ class Inspection extends Pivot
         $product = $this->recordedProduct->product;
         return $this->process->products()->find($product->id)->inspectingForm->form;
     }
+
+    /**
+     * 製番・工程での検索クエリ
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  array  $param
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $param)
+    {
+        if(isset($param['recorded_number'])){
+            $query->whereIn('recorded_product_id', RecordedProduct::recordedNumber($param['recorded_number'])->select('recorded_products.id'));
+        }
+        if(isset($param['process'])){
+            $query->whereIn('process_id', Process::where('id', $param['process'])->select('processes.id'));
+        }
+        $query->with([
+            'process',
+            'recordedProduct',
+            'recordedProduct.product'
+        ]);
+        return $query;
+    }
 }
