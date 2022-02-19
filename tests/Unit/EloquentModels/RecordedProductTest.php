@@ -51,7 +51,7 @@ test('複数の特別仕様を取得できる', function () {
     $recordedProduct = RecordedProduct::factory()->for($product)->create();
 
     // Act
-    //生産実績生成
+    //特別仕様生成
     $specialSpecification = SpecialSpecification::factory()->count(5)->for($recordedProduct)->create();
 
     // Assert
@@ -59,4 +59,24 @@ test('複数の特別仕様を取得できる', function () {
     expect($recordedProduct->specialSpecifications)->each(function($specialSpecification){
         expect($specialSpecification)->value->toBeInstanceOf(SpecialSpecification::class);
     });
+});
+
+
+test('製造番号を指定して取得出来る', function () {
+    // Arrange
+    $product = Product::factory()->create();
+    $target = 'target';
+    //生産実績生成
+    RecordedProduct::factory()->for($product)->create();
+    RecordedProduct::factory()->for($product)->create(
+        [
+            'recorded_number' => $target,
+        ]
+    );
+
+    // Act
+    $recordedProduct = RecordedProduct::recordedNumber($target)->first();
+
+    // Assert
+    expect($recordedProduct)->recorded_number->toBe($target);
 });

@@ -60,3 +60,28 @@ test('検査方式を取得できる', function () {
 });
 
 
+test('指定した製番と工程の検査モデルを取得できる', function () {
+    // Arrange
+    $process = Process::first();
+    $process->products()->attach(Product::first()->id, ['form' => 'CHECKLIST']);
+    //
+    $target = 'target';
+    $product = Product::first();
+    $process->recordedProducts()->attach(RecordedProduct::factory()->for($product)->create([
+        'recorded_number' => $target,
+    ])->id);
+    $param = [
+        'process' => $process->id,
+        'recorded_number' => $target
+    ];
+    // Action
+    $inspections = Inspection::search($param)->get();
+
+    // Assert
+    expect($inspections)->each(function($inspection) use($param) {
+        $inspection->recordedProduct->recorded_number->toBe($param['recorded_number']);
+        $inspection->process->id->toBe($param['process']);
+    });
+});
+
+

@@ -29,4 +29,14 @@ class RecordedProduct extends Model
     {
         return $this->hasMany(SpecialSpecification::class);
     }
+
+    /**
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $value
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecordedNumber($query, $value)
+    {
+        return $query->where('recorded_number', $value);
+    }
 }
