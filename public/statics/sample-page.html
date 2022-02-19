@@ -69,6 +69,76 @@
                 </section>
             </aside>
             <main class="">
+                <div id="app">
+                    <div class="react-wrapper">
+                        <section class="search-aria">
+                            <div class="search-box">
+                                <form class="form form--flex">
+                                    <div class="form__group">
+                                        <label class="form-label">製番</label>
+                                        <input type="text" class="form-input">
+                                    </div>
+                                    <div class="form__group">
+                                    <label class="form-label">工程</label>
+                                    <select class="form-input form-input--select">
+                                        <option>工程1</option>
+                                        <option>工程2</option>
+                                        <option>工程3</option>
+                                    </select>
+                                    </div>
+                                    <div class="form__group">
+                                        <button class="button">検索</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                        <section class="result-aria">
+                            <div class="results-box">
+                                <table class="list-table">
+                                    <thead class="list-table__head">
+                                        <tr>
+                                            <th>製番</th>
+                                            <th>工程</th>
+                                            <th>方式</th>
+                                            <th>状態</th>
+                                            <th>検査</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list-table__body">
+                                        <tr>
+                                            <td>RN_0001</td>
+                                            <td>工程名0001</td>
+                                            <td>チェックリスト</td>
+                                            <td>未実施</td>
+                                            <td>
+                                                <a class="button" href="#">検査画面へ</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RN_0001</td>
+                                            <td>工程名0001</td>
+                                            <td>チェックリスト</td>
+                                            <td>未実施</td>
+                                            <td>
+                                                <a class="button" href="#">検査画面へ</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RN_0001</td>
+                                            <td>工程名0001</td>
+                                            <td>チェックリスト</td>
+                                            <td>未実施</td>
+                                            <td>
+                                                <a class="button" href="#">検査画面へ</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot  class="list-table__foot"></tfoot>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
             </main>
         </div>
     </body>
