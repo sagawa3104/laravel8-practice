@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import ResultsAria from './ResultsArea';
-import SearchAria from './SearchArea';
+import ResultsArea from './ResultsArea';
+import SearchArea from './SearchArea';
 
 const SearchInspection = () => {
 
@@ -27,13 +26,10 @@ const SearchInspection = () => {
 
     return(
         <div className="react-wrapper">
-            <SearchAria processes={processes} fetchData={fetchData} />
-            <ResultsAria results={results} />
+            <SearchArea processes={processes} fetchData={fetchData} />
+            <ResultsArea results={results} />
         </div>
     )
 }
 
 export default SearchInspection;
-// if (document.getElementById('app')) {
-//     ReactDOM.render(<SearchInspection />, document.getElementById('app'));
-// }
