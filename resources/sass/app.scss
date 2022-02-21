@@ -311,3 +311,46 @@
     border-style: ridge;
 }
 
+.info-area{
+    padding-top: 1rem;
+}
+
+.image-area{
+    display: flex;
+    padding-top: 1rem;
+}
+
+.image-box{
+    width:432px;
+    height:432px;
+    background-color: azure;
+    position:relative;
+    &__image{
+        position: absolute;
+        z-index: 500;
+        width:432px;
+        height:auto;
+    }
+    &__plot-table{
+        position: absolute;
+        z-index: 600;
+        width:100%;
+        height:100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        >tbody{
+            >tr{
+                >td{
+                    border-width: 1px;
+                    border-style: solid;
+                }
+            }
+        }
+    }
+}
+
+.detail-area{
+    padding-top: 1rem;
+}
+
+
