@@ -7,7 +7,7 @@ const SearchInspection = () => {
     const [processes, setProcesses] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get('api/processes');
+            const res = await axios.get('http://localhost/api/processes');
             setProcesses(res.data);
         };
         fetchData();
@@ -15,7 +15,7 @@ const SearchInspection = () => {
 
     const [results, setResults] = useState();
     const fetchData = async (recordedProductNumber,process) => {
-        const res = await axios.get('api/inspections', {
+        const res = await axios.get('http://localhost/api/inspections', {
             params:{
                 'recorded_number' : recordedProductNumber,
                 'process' : process,
