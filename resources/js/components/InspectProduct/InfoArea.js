@@ -1,5 +1,3 @@
-import PreviousMap from "postcss/lib/previous-map";
-
 const InfoArea = (props) => {
 
     return(
