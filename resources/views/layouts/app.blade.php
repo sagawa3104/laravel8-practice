@@ -62,10 +62,18 @@
                 </section>
                 <br>
                 <section class="side-bar__category">
-                    <label class="side-bar__category__label">統計管理</label>
+                    <label class="side-bar__category__label">検査</label>
                     <ul class="side-bar__category__list">
                         <li class="side-bar__category__list__item">
-                            <a href="statics/sample-page.html">品目別</a>
+                            <a href="http://localhost/react/search">Reactテスト</a>
+                        </li>
+                    </ul>
+                </section>
+                <section class="side-bar__category">
+                    <label class="side-bar__category__label">デザイン用</label>
+                    <ul class="side-bar__category__list">
+                        <li class="side-bar__category__list__item">
+                            <a href="statics/sample-page.html">ページ</a>
                         </li>
                     </ul>
                 </section>
