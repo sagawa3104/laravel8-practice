@@ -1,31 +1,20 @@
-const ImageArea = () => {
+import PlotTableRow from "./PlotTableRow";
 
+const ImageArea = () => {
+    const rowRount = 5;
+    const rows = [...Array(rowRount)].map((value, index) => (<PlotTableRow key={index}></PlotTableRow>) );
     return(
-        <section class="image-area">
-            <div class="left-block"></div>
-            <div class="image-box">
-                <img class="image-box__image" src="http://localhost/img/200x150.png" />
-                <table class="image-box__plot-table">
+        <section className="image-area">
+            <div className="left-block"></div>
+            <div className="image-box">
+                <img className="image-box__image" src="http://localhost/img/200x150.png" />
+                <table className="image-box__plot-table">
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        {rows}
                     </tbody>
                 </table>
             </div>
-            <div class="right-block"></div>
+            <div className="right-block"></div>
         </section>
     )
 }

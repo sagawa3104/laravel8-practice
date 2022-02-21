@@ -6,7 +6,7 @@ import InfoArea from './InfoArea';
 const InspectProduct = () => {
     const params = useParams()
     return(
-        <div class="react-wrapper">
+        <div className="react-wrapper">
             <InfoArea inspectId={params.inspectId}/>
             <ImageArea />
             <DetailArea/>
