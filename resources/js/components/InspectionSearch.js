@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import ResultsAria from './ResultsAria';
 import SearchAria from './SearchAria';
 
-const InspectionSearch = () => {
+const SearchInspection = () => {
 
-    const [processes, setProcesses] = useState();
+    const [processes, setProcesses] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             const res = await axios.get('api/processes');
@@ -15,16 +15,24 @@ const InspectionSearch = () => {
     }, []);
 
     const [results, setResults] = useState();
-
+    const fetchData = async (recordedProductNumber,process) => {
+        const res = await axios.get('api/inspections', {
+            params:{
+                'recorded_number' : recordedProductNumber,
+                'process' : process,
+            }
+        });
+        setResults(res.data);
+    }
 
     return(
         <div className="react-wrapper">
-            <SearchAria processes={processes} setResults={setResults} />
+            <SearchAria processes={processes} fetchData={fetchData} />
             <ResultsAria results={results} />
         </div>
     )
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<InspectionSearch />, document.getElementById('app'));
+    ReactDOM.render(<SearchInspection />, document.getElementById('app'));
 }
