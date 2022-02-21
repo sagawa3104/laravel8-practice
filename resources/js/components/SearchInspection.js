@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import ResultsAria from './ResultsAria';
-import SearchAria from './SearchAria';
+import ResultsAria from './ResultsArea';
+import SearchAria from './SearchArea';
 
 const SearchInspection = () => {
 
@@ -33,6 +33,7 @@ const SearchInspection = () => {
     )
 }
 
-if (document.getElementById('app')) {
-    ReactDOM.render(<SearchInspection />, document.getElementById('app'));
-}
+export default SearchInspection;
+// if (document.getElementById('app')) {
+//     ReactDOM.render(<SearchInspection />, document.getElementById('app'));
+// }

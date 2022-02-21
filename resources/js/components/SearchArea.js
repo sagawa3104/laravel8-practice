@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const SearchAria = (props) => {
+const SearchArea = (props) => {
     const [recordedProductNumber, setRecordedProductNumber] = useState('test');
     const [process, setProcess] = useState('');
 
@@ -13,7 +13,7 @@ const SearchAria = (props) => {
     }
 
     return(
-        <section className="search-aria">
+        <section className="search-area">
             <div className="search-box">
                 <form className="form form--flex" onSubmit={handleSubmit}>
                     <div className="form__group">
@@ -38,4 +38,4 @@ const SearchAria = (props) => {
     )
 }
 
-export default SearchAria;
+export default SearchArea;
