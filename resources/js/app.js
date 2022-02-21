@@ -1,3 +1,3 @@
 require('./bootstrap');
 
-require('./components/InspectionSearch');
+require('./components/AppRoutes');
