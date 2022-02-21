@@ -7,24 +7,11 @@ function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/react" element={<SearchInspection />} />
-                <Route path="/react/inspect" element={<InspectProduct />} />
-                <Route path="/react/contact" element={<Contact />} />
+                <Route path="/react/search" element={<SearchInspection />} />
+                <Route path="/react/inspect/:inspectId" element={<InspectProduct />} />
             </Routes>
         </BrowserRouter>
     );
-}
-
-function Home() {
-return <h2>Home</h2>;
-}
-
-function About() {
-return <h2>About</h2>;
-}
-
-function Contact() {
-return <h2>Contact</h2>;
 }
 
 if (document.getElementById('app')) {
