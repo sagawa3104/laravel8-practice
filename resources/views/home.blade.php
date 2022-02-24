@@ -24,7 +24,7 @@
             </li>
             <li>生産実績
                 <ul class="vertical-list vertical-list--indent">
-                    <li>生産実績はある品目について生産された実績である  </li>
+                    <li>生産実績はある品目について登録される実績データ </li>
                     <li>製造番号によって識別される。</li>
                     <li>生産実績ごとに検査が実施される</li>
                 </ul>
@@ -69,17 +69,23 @@
                     <li>品目・工程ごとに複数割り当てられる</li>
                 </ul>
             </li>
-            <li>検査
+            <li>検査実績
                 <ul class="vertical-list vertical-list--indent">
-                    <li>製造番号ごとに実施される</li>
+                    <li>製造番号・工程ごとに実施される実績データ</li>
                     <li>検査結果として検査項目を複数持つ</li>
                 </ul>
             </li>
-            <li>検査明細
+            <li>検査実績明細
                 <ul class="vertical-list vertical-list--indent">
-                    <li>製造番号ごとに複数登録される</li>
-                    <li>明細が登録される特定の工程を持つ</li>
+                    <li>製造番号ごとに複数登録される実績データ</li>
                     <li>明細が登録される特定の部位を持つ</li>
+                    <li>実績チェックリスト項目か実績マッピング項目を持つ</li>
+                </ul>
+            </li>
+            <li>実績チェックリスト項目
+                <ul class="vertical-list vertical-list--indent">
+                    <li>検査実績明細ごとに登録される実績データ</li>
+                    <li>仕様か専用仕様を参照する</li>
                 </ul>
             </li>
         </ul>
