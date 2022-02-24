@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailArea from './DetailArea';
-import ImageArea from './ImageArea';
+import ActionArea from './ActionArea';
 import InfoArea from './InfoArea';
 
 const InspectProduct = () => {
@@ -24,7 +24,7 @@ const InspectProduct = () => {
     return(
         <div className="react-wrapper">
             <InfoArea inspectId={params.inspectId} />
-            <ImageArea inspection={inspection} selectCell={selectCell} selectedCell={selectedCell} />
+            <ActionArea inspection={inspection} selectCell={selectCell} selectedCell={selectedCell} />
             <DetailArea/>
         </div>
     )
