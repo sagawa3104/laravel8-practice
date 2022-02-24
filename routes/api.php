@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('processes', [ProcessController::class, 'index']);
 Route::get('inspections', [InspectionController::class, 'index']);
+Route::get('inspections/{inspection}', [InspectionController::class, 'show']);
