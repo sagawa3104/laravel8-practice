@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ResultRow from "./ResultRow";
 
-const ResultsAria = (props) => {
+const ResultsArea = (props) => {
     const results = props.results;
     const [rows, setRows] = useState();
     useEffect( ()=>{
@@ -9,7 +9,7 @@ const ResultsAria = (props) => {
         setRows(resultRows);
     }, [results]);
     return(
-        <section className="result-aria">
+        <section className="result-area">
             <div className="results-box">
                 <table className="list-table">
                     <thead className="list-table__head">
@@ -31,4 +31,4 @@ const ResultsAria = (props) => {
     )
 }
 
-export default ResultsAria;
+export default ResultsArea;

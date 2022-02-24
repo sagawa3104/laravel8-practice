@@ -54,3 +54,4 @@ Route::resource('inspecting-forms', InspectingFormController::class);
 Route::resource('inspections', InspectionController::class);
 
 Route::get('react', [ReactController::class, 'index'])->name('react.index');
+Route::get('react/{any}', [ReactController::class, 'index'])->where('any', '.*');

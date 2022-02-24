@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const ResultRow = (props) => {
     return(
         <tr>
@@ -6,7 +8,7 @@ const ResultRow = (props) => {
             <td>{props.result.recorded_product.product.name}</td>
             <td>{props.result.form}</td>
             <td>
-                <a className="button" href="#">検査画面へ</a>
+                <Link to={'/react/inspect/'+ props.result.id} className="button">検査画面へ</Link>
             </td>
         </tr>
     )

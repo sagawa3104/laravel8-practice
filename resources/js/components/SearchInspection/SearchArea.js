@@ -1,36 +1,19 @@
 import { useEffect, useState } from "react";
 
-const SearchAria = (props) => {
+const SearchArea = (props) => {
     const [recordedProductNumber, setRecordedProductNumber] = useState('test');
-    const [process, setProcess] = useState(null);
-    const [options, setOptions] = useState();
+    const [process, setProcess] = useState('');
 
     const processes = props.processes;
-    const setResults = props.setResults;
-    useEffect(() => {
-        const processOptions = processes? processes.map(process => (<option key={process.id} value={process.id}>{process.name}</option>)):null;
-        console.log(processOptions);
-
-        setOptions(processOptions);
-    }, [processes]);
+    const processOptions = processes.map(process => (<option key={process.id} value={process.id}>{process.name}</option>));
 
     const handleSubmit = (e) => {
-        const fetchData = async () => {
-            const res = await axios.get('api/inspections', {
-                params:{
-                    'recorded_number' : recordedProductNumber,
-                    'process' : process,
-                }
-            });
-            setResults(res.data);
-        };
-
         e.preventDefault();
-        fetchData();
+        props.fetchData(recordedProductNumber, process);
     }
 
     return(
-        <section className="search-aria">
+        <section className="search-area">
             <div className="search-box">
                 <form className="form form--flex" onSubmit={handleSubmit}>
                     <div className="form__group">
@@ -43,7 +26,7 @@ const SearchAria = (props) => {
                         <select className="form-input form-input--select" name="process"
                         value={process} onChange={(e) => setProcess(e.target.value)}>
                             <option key={0} value="">----</option>
-                            {options}
+                            {processOptions}
                         </select>
                     </div>
                     <div className="form__group">
@@ -55,4 +38,4 @@ const SearchAria = (props) => {
     )
 }
 
-export default SearchAria;
+export default SearchArea;

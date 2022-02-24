@@ -19,4 +19,19 @@ class InspectionController extends Controller
         });
         return $inspections;
     }
+
+    public function show(Inspection $inspection)
+    {
+        $inspection->load([
+            'process',
+            'recordedProduct',
+            'recordedProduct.product',
+            'inspectionDetails',
+            'inspectionDetails.recordedMappingItem',
+            'inspectionDetails.recordedMappingItem.mappingItem',
+            'inspectionDetails.recordedMappingItem.mappingItem.processPart',
+            'inspectionDetails.recordedMappingItem.mappingItem.processPart.part',
+        ]);
+        return $inspection;
+    }
 }

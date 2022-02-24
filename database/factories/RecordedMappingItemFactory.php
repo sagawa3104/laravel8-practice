@@ -15,8 +15,8 @@ class RecordedMappingItemFactory extends Factory
     {
         return [
             //
-            'x_point' => 5,
-            'y_point' => 5,
+            'x_point' => $this->faker->numberBetween(1, 5),
+            'y_point' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

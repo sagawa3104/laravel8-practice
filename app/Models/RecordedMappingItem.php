@@ -13,4 +13,14 @@ class RecordedMappingItem extends Model
     {
         return $this->belongsTo(InspectionDetail::class);
     }
+
+    public function mappingItem()
+    {
+        return $this->belongsTo(MappingItem::class);
+    }
+
+    public function itemable()
+    {
+        return $this->morphTo();
+    }
 }
